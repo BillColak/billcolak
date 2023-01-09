@@ -1,19 +1,19 @@
 import {Canvas, useFrame} from '@react-three/fiber'
-import Box from '../components/Box';
-import Sphere from "../components/Sphere";
+import Box from '../components/ThreeComponents/Box';
+import Sphere from "../components/ThreeComponents/Sphere";
 import {Suspense, useRef} from "react";
 import * as THREE from "three";
 import {TransformControls, OrbitControls, Html} from '@react-three/drei'
 // import TestScene from "../components/testScene";
-import CustomObject from "../components/CustomObject";
-import StairWay from "../components/StairWay";
-import Column from "../components/Column";
-import Rails from "../components/Rails";
-import PyramidRails from "../components/PyramidRails";
-import ObeliskRails from "../components/ObeliskRails";
-import Ball from "../components/Ball";
+import CustomBox from "../components/ThreeComponents/CustomBox";
+import StairWay from "../components/ThreeComponents/StairWay";
+import Column from "../components/ThreeComponents/Column";
+import Rails from "../components/ThreeComponents/Rails";
+import PyramidRails from "../components/ThreeComponents/PyramidRails";
+import ObeliskRails from "../components/ThreeComponents/ObeliskRails";
+import Ball from "../components/ThreeComponents/Ball";
 import {useControls} from "leva";
-import Arch from "../components/Arch";
+import Arch from "../components/ThreeComponents/Arch";
 
 
 // todo add debug panel instead of updating state
@@ -21,16 +21,16 @@ import Arch from "../components/Arch";
 
 function Experience() {
 
-    const controls = useControls({
-        radius : 1,
-        widthSegments : 32,
-        heightSegments : 16,
-        phiStart : 0,
-        phiLength : Math.PI,
-        thetaStart : 4.3,
-        thetaLength : 1/Math.PI,
-        wireframe : false
-    });
+    // const controls = useControls({
+    //     radius : 1,
+    //     widthSegments : 32,
+    //     heightSegments : 16,
+    //     phiStart : 0,
+    //     phiLength : Math.PI,
+    //     thetaStart : 4.3,
+    //     thetaLength : 1/Math.PI,
+    //     wireframe : false
+    // });
 
 
     const group = useRef<THREE.Group>(null!)
@@ -46,48 +46,48 @@ function Experience() {
 
     return (
         <>
-            <Arch
-                radius={controls.radius}
-                widthSegments={controls.widthSegments}
-                heightSegments={controls.heightSegments}
-                phiStart={controls.phiStart}
-                phiLength={controls.phiLength}
-                thetaStart={controls.thetaStart}
-                thetaLength={controls.thetaLength}
-                color={'hotpink'}
-                wireframe={controls.wireframe}
-            />
-            <Ball
-                position={[0,2,2]}
-                rotation={[0,0,0]}
-                colorTwo={"#523fea"}
-                colorOne={"#aaff00"}
-                key="Ball123"
-            />
-            <PyramidRails
-                key="PyramidRails"
-                count={4}
-                leftClosed={true}
-                rightClosed={true}
-                height={1}
-                position={[-3, 0, 0]}
-                color={'skyblue'}
-            />
-            <ObeliskRails
-                key="ObeliskRails123"
-                leftClosed={true}
-                rightClosed={true}
-                count={4}
-                height={1}
-                position={[-3, 0, -2]}
-                color={'#deaa89'}
-            />
+            {/*<Arch*/}
+            {/*    radius={controls.radius}*/}
+            {/*    widthSegments={controls.widthSegments}*/}
+            {/*    heightSegments={controls.heightSegments}*/}
+            {/*    phiStart={controls.phiStart}*/}
+            {/*    phiLength={controls.phiLength}*/}
+            {/*    thetaStart={controls.thetaStart}*/}
+            {/*    thetaLength={controls.thetaLength}*/}
+            {/*    color={'hotpink'}*/}
+            {/*    wireframe={controls.wireframe}*/}
+            {/*/>*/}
+            {/*<Ball*/}
+            {/*    position={[0,2,2]}*/}
+            {/*    rotation={[0,0,0]}*/}
+            {/*    colorTwo={"#523fea"}*/}
+            {/*    colorOne={"#aaff00"}*/}
+            {/*    key="Ball123"*/}
+            {/*/>*/}
+            {/*<PyramidRails*/}
+            {/*    key="PyramidRails"*/}
+            {/*    count={4}*/}
+            {/*    leftClosed={true}*/}
+            {/*    rightClosed={true}*/}
+            {/*    height={1}*/}
+            {/*    position={[-3, 0, 0]}*/}
+            {/*    color={'skyblue'}*/}
+            {/*/>*/}
+            {/*<ObeliskRails*/}
+            {/*    key="ObeliskRails123"*/}
+            {/*    leftClosed={true}*/}
+            {/*    rightClosed={true}*/}
+            {/*    count={4}*/}
+            {/*    height={1}*/}
+            {/*    position={[-3, 0, -2]}*/}
+            {/*    color={'#deaa89'}*/}
+            {/*/>*/}
 
-            <StairWay
-                // key="StairWay123"
-                steps={7}
-                position={[3, 1, 3]}
-            />
+            {/*<StairWay*/}
+            {/*    // key="StairWay123"*/}
+            {/*    steps={7}*/}
+            {/*    position={[3, 1, 3]}*/}
+            {/*/>*/}
 
             {/*<group ref={group}>*/}
             {/*    <Box position={[-1.2, 1, 0]} rotation-y={ Math.PI * 0.25 } />*/}
@@ -103,7 +103,12 @@ function Experience() {
             {/*    </Html>*/}
             {/*</group>*/}
             {/*<TransformControls object={sphere} mode="translate" />*/}
-            {/*<CustomObject position={[0, 0, 0]} scale={1} />*/}
+            <CustomBox
+                position={[0, 2, 0]}
+                rotation={[0, 0, 0]}
+                scale={1}
+
+            />
 
 
             <mesh position-y={ 0 } rotation-x={ - Math.PI * 0.5 } scale={ 20 }>

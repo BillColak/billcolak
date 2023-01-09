@@ -11,6 +11,8 @@ const Navbar = () => {
             <nav className="h-flex">
                 <NavLink className="btn-red" to="/" >Home</NavLink>
                 <NavLink className="btn-red" to="/Contact" >Contact</NavLink>
+                <NavLink className="btn-red" to="/Resume" >Resume</NavLink>
+                <NavLink className="btn-red" to="/Game" >Game</NavLink>
             </nav>
         </div>
     );
