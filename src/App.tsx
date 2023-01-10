@@ -16,8 +16,8 @@ function App() {
                       <Route index element={<Home />} />
                       <Route path="/Contact" element={<Contact />} />
                       <Route path="/Resume" element={<Resume />} />
-                      <Route path="/Game" element={<Game />} />
                   </Route>
+                  <Route path="/Game" element={<Game />} />
               </Routes>
           {/*</EventsProvider>*/}
       </BrowserRouter>

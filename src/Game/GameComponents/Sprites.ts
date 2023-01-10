@@ -1,109 +1,111 @@
 
-interface GameObject {
-    position: { x: number, y: number },
-    // height: number;
-    // width: number;
-    // scale: number,
-    // imageSource: string,
-    // framesMax: number,
-    // offset: { x: number, y: number },
-    // rotation?: number,
-}
+
+
 
 // 🥩🦕
+interface GameObject {
+    position: { x: number, y: number },
+    image: HTMLImageElement,
+    // size: { width: number, height: number },
+    // velocity: { x: number, y: number },
+    // update: () => void,
+    // render: () => void
+}
+
+
 export class Sprite implements GameObject {
+
     position: { x: number, y: number };
-    velocity?: number;
     image: HTMLImageElement;
-    framesMax: number;
-    framesCurrent: number = 0;
-    framesElapsed: number = 0;
-    framesHold: number = 5;
+    frames = { max: 1, hold: 10, val: 0, elapsed: 0 };
+    height: number = 10;
+    width: number = 10;
+    offset: { x: number, y: number };
     scale: number;
-    // height: number;
-    // width: number;
-    offset: { x: number; y: number };
 
     constructor(
         position: { x: number, y: number },
         imageSource: string,
-        framesMax: number,
         offset: { x: number, y: number } = { x: 0, y: 0 },
         scale: number = 1,
-        // sprites: { [key: string]: HTMLImageElement } = {},
-        // hitBox: { position: { x: number, y: number }, width: number, height: number } = { position: {x: 0, y: 0}, width: 0, height: 0 }
+        frames: { max: number, hold: number } = { max: 1, hold: 10 }
     ) {
         this.position = position;
         this.image = new Image();
         this.image.src = imageSource;
-        this.framesMax = framesMax;
-        this.offset = offset;
         this.scale = scale;
+        this.image.onload = () => {
+            this.width = (this.image.width / this.frames.max) * scale
+            this.height = this.image.height * scale
+        }
+        this.offset = offset;
+    }
+
+    move(x: number, y: number): void {
+        this.position.x += x;
+        this.position.y += y;
     }
 
     protected draw(ctx: CanvasRenderingContext2D):void  {
         ctx.drawImage(
             this.image,
-            this.framesCurrent * (this.image.width / this.framesMax),
             0,
-            this.image.width / this.framesMax,
+            0,
+            this.image.width / this.frames.max,
             this.image.height,
-            this.position.x - this.offset.x,
-            this.position.y - this.offset.y,
-            (this.image.width / this.framesMax) * this.scale,
+            this.position.x,
+            this.position.y,
+            this.image.width / this.frames.max * this.scale,
             this.image.height * this.scale
         )
     }
-    animateFrames(): void {
-        this.framesElapsed++
-        if (this.framesElapsed % this.framesHold === 0) {
-            if (this.framesCurrent < this.framesMax - 1) {
-                this.framesCurrent++
-            } else {
-                this.framesCurrent = 0
-            }
-        }
 
-    }
     update(ctx: CanvasRenderingContext2D):void {
         this.draw(ctx);
-        this.animateFrames()
     }
 
 }
 
-// todo have destructive object if anything touches goes to dead state?
+
+interface Animation {
+    [key: string|number]: HTMLImageElement
+}
 
 
+// 🐫
+export class Character extends Sprite {
+    constructor(
+        position: { x: number, y: number },
+        imageSource: string,
+        offset: { x: number, y: number } = { x: 0, y: 0 },
+        scale: number = 1,
+        // velocity: { x: number, y: number },
+        // frames: { max: number, hold: number },
+        // Animation: Animation,
+        // animate = false,
+    ) {
+        super(position, imageSource, offset, scale);
+    }
 
+    setPosition(x: number, y: number) {
+        this.position.x = x;
+        this.position.y = y;
+    }
 
-// class Sprite extends GameEntity {
-//     image: HTMLImageElement;
-//     constructor(
-//         position: { x: number, y: number },
-//         velocity: number,
-//         image: HTMLImageElement) {
-//         super(position, velocity);
-//         this.image = image;
-//     }
-//
-//     draw(ctx: CanvasRenderingContext2D) {
-//         ctx.drawImage(this.image, this.position.x, this.position.y);
-//     }
-//
-//     update() {
-//         this.position.x += this.velocity;
-//     }
-// }
-//
-//
-// export class Player extends Sprite {
-//     constructor(position: { x: number, y: number }) {
-//         super(position);
-//     }
-//
-//     draw(ctx: CanvasRenderingContext2D) {
-//         ctx.fillStyle = "#00f";
-//         ctx.fillRect(this.position.x, this.position.y, 50, 150);
-//     }
-// }
+    protected draw(ctx: CanvasRenderingContext2D) {
+        const crop = {
+            position: {
+                x: this.frames.val * (this.width / this.scale),
+                y: 0
+            },
+            width: this.image.width / this.frames.max,
+            height: this.image.height
+        }
+
+        ctx.drawImage(
+            this.image,
+            this.position.x,
+            this.position.y,
+        )
+    }
+}
