@@ -37,6 +37,131 @@ export default function Resume() {
                 </div>
             </section>
 
+            <section className="Areas of Expertise v-flex justify-center items-center bg-indigo-500">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section className="Areas of Expertise v-flex justify-center items-center bg-orange-600">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className=" ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section className="Areas of Expertise v-flex justify-center items-center border-y-green-600">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section className="Areas of Expertise v-flex justify-center items-center bg-amber-600">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section className="Areas of Expertise v-flex justify-center items-center bg-blue-600">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
             <section className="Areas of Expertise v-flex justify-center items-center">
                 <div className="v-flex items-start w-fit">
                     <h1 className="text-4xl font-bold">Areas of Expertise</h1>
@@ -62,7 +187,81 @@ export default function Resume() {
                     </table>
                 </div>
             </section>
-
+            <section className="Areas of Expertise v-flex justify-center items-center">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section className="Areas of Expertise v-flex justify-center items-center">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <section className="Areas of Expertise v-flex justify-center items-center">
+                <div className="v-flex items-start w-fit">
+                    <h1 className="text-4xl font-bold">Areas of Expertise</h1>
+                    <h3 className="text-4xl">Commerce </h3>
+                    <table className="table-auto w-full h-full ">
+                        <tbody>
+                        <tr>
+                            <td>Skill1</td>
+                            <td>Skill2</td>
+                            <td>Skill3</td>
+                        </tr>
+                        <tr>
+                            <td>Skill4</td>
+                            <td>Skill5</td>
+                            <td>Skill6</td>
+                        </tr>
+                        <tr>
+                            <td>Skill7</td>
+                            <td>Skill8</td>
+                            <td>Skill9</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
             <section className="Experience w-full h-full "></section>
             <section className="Skills Summary w-full h-full "></section>
             <section className="Projects w-full h-full "></section>

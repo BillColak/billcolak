@@ -14,9 +14,24 @@ import ObeliskRails from "../components/ThreeComponents/ObeliskRails";
 import Ball from "../components/ThreeComponents/Ball";
 import {useControls} from "leva";
 import Arch from "../components/ThreeComponents/Arch";
+import Laptop from "../components/Laptop/Laptop";
 
 
 // todo add debug panel instead of updating state
+// TODO https://codesandbox.io/s/zxpv7 HAVE TO ADD THIS!!!
+// TODO DESIGN SYSTEM WITH COLORS AND FONTS IN FIGMA
+// https://codesandbox.io/s/mkq8e --> Map with hover highlight
+// https://codesandbox.io/s/bst0cy --> monitors, another way to display projects?
+// https://codesandbox.io/s/6hi1y --> domino & Rube Goldberg machine to ball cluster effect? https://codesandbox.io/s/zxpv7?file=/src/DirtyFigmaExport.js https://www.pinterest.ca/pin/152911349820845754/
+// floating diamonds https://codesandbox.io/s/prb9t
+// todo landing page with 3d models of projects https://codesandbox.io/s/n60qg
+// todo fonts
+// The entire R3F is nuts https://docs.pmnd.rs/react-three-fiber/getting-started/examples
+// https://codesandbox.io/s/x8gvs   side scroll
+// image gallery https://codesandbox.io/s/lx2h8   --> can do UI/UX with this also good for Escher displays
+// layer materials might come in handy https://codesandbox.io/s/nvup4
+// gatsby stars for Space Escher: https://codesandbox.io/s/2csbr1
+// https://codesandbox.io/s/yjhzv || https://codesandbox.io/s/gsm1y --> combine this with globe + https://codesandbox.io/s/n60qg
 
 
 function Experience() {
@@ -103,18 +118,19 @@ function Experience() {
             {/*    </Html>*/}
             {/*</group>*/}
             {/*<TransformControls object={sphere} mode="translate" />*/}
-            <CustomBox
-                position={[0, 2, 0]}
-                rotation={[0, 0, 0]}
-                scale={1}
+            {/*<CustomBox*/}
+            {/*    position={[0, 2, 0]}*/}
+            {/*    rotation={[0, 0, 0]}*/}
+            {/*    scale={1}*/}
 
-            />
+            {/*/>*/}
 
+            <Laptop/>
 
-            <mesh position-y={ 0 } rotation-x={ - Math.PI * 0.5 } scale={ 20 }>
-                <planeGeometry  />
-                <meshStandardMaterial color={'greenyellow'} />
-            </mesh>
+            {/*<mesh position-y={ 0 } rotation-x={ - Math.PI * 0.5 } scale={ 20 }>*/}
+            {/*    <planeGeometry  />*/}
+            {/*    <meshStandardMaterial color={'greenyellow'} />*/}
+            {/*</mesh>*/}
         </>
     )
 }
@@ -123,40 +139,43 @@ function Experience() {
 export default function Home() {
 
     return (
-        <div className="v-flex w-full h-screen">
-            This is the home page.
-            {/*<Spline scene="https://prod.spline.design/m7T1A1rThV4xWH5K/scene.splinecode" />*/}
+        <>
+            <div className="v-flex w-full h-[800px]">
+                This is the home page.
+                {/*<Spline scene="https://prod.spline.design/m7T1A1rThV4xWH5K/scene.splinecode" />*/}
 
-            {/*<Canvas shadows flat linear>*/}
-            {/*    <Suspense fallback={null}>*/}
-            {/*        <OrbitControls />*/}
-            {/*        <TestScene  />*/}
-            {/*    </Suspense>*/}
-            {/*</Canvas>*/}
+                {/*<Canvas shadows flat linear>*/}
+                {/*    <Suspense fallback={null}>*/}
+                {/*        <OrbitControls />*/}
+                {/*        <TestScene  />*/}
+                {/*    </Suspense>*/}
+                {/*</Canvas>*/}
 
-            <Canvas
-                // all these are pretty much default values
-                dpr={[1, 2]}
-                gl={{
-                    alpha: true,
-                    antialias: true,
-                    toneMapping: THREE.ACESFilmicToneMapping,
-                    outputEncoding: THREE.sRGBEncoding,
-                }}
-                orthographic
-                camera={ {
-                    fov: 45,
-                    near: 0.1,
-                    far: 200,
-                    position: [ 3, 2, 6 ],
-                    zoom: 100
-                } }
-            >
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <Experience />
-                <OrbitControls />
-            </Canvas>
-        </div>
+                <Canvas //wtf does Canvas do?
+                    // all these are pretty much default values
+                    dpr={[1, 2]}
+                    gl={{
+                        alpha: true,
+                        antialias: true,
+                        toneMapping: THREE.ACESFilmicToneMapping,
+                        outputEncoding: THREE.sRGBEncoding,
+                    }}
+                    // orthographic
+                    camera={ {
+                        fov: 45,
+                        near: 0.1,
+                        far: 200,
+                        position: [ 3, 2, 4 ], // use the third index to bring the camera closer.
+                        zoom: 1
+                    } }
+                >
+                    <ambientLight intensity={0.5} />
+                    <pointLight position={[10, 10, 10]} />
+                    <Experience />
+                </Canvas>
+            </div>
+        </>
     );
 }
+// todo Spring library for realistic animations? https://react-spring.dev/ https://react-spring.dev/docs/advanced/config#configs even animate dom elements?
+// https://codesandbox.io/s/kud9p?file=/src/Model.js:883-933 -->  what is going on with nodes in Model.js?

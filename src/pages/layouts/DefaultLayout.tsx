@@ -5,7 +5,7 @@ import Footer from "../Footer";
 
 export default function DefaultLayout() {
     return (
-        <div className="defaultLayout v-flex w-full h-full">
+        <div >
             <NavBar />
             <Outlet />
             <Footer />

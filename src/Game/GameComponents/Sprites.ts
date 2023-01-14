@@ -3,9 +3,11 @@
 
 
 // 🥩🦕
-interface GameObject {
+export interface GameObject {
     position: { x: number, y: number },
-    image: HTMLImageElement,
+    image?: HTMLImageElement,
+    width: number,
+    height: number,
     // size: { width: number, height: number },
     // velocity: { x: number, y: number },
     // update: () => void,
@@ -34,10 +36,8 @@ export class Sprite implements GameObject {
         this.image = new Image();
         this.image.src = imageSource;
         this.scale = scale;
-        this.image.onload = () => {
-            this.width = (this.image.width / this.frames.max) * scale
-            this.height = this.image.height * scale
-        }
+        this.frames.max = frames.max;
+        this.frames.hold = frames.hold;
         this.offset = offset;
     }
 
@@ -67,24 +67,47 @@ export class Sprite implements GameObject {
 }
 
 
-interface Animation {
-    [key: string|number]: HTMLImageElement
+export interface Animation {
+    [name: string|number]: number
 }
+
+// const testAnimation: Animation = {
+//     'walk': 10,
+//     'jump': 10,
+//     'attack': 10,
+//     'die': 10,
+// }
+//
+// // loop through animation and print it out.
+// for (const [key, value] of Object.entries(testAnimation)) {
+//     console.log(`${key}: ${value}`);
+// }
+
+
 
 
 // 🐫
 export class Character extends Sprite {
+    height: number = 10;
+    width: number = 10;
+    animation: Animation;
+    frames = { max: 1, hold: 10, val: 0, elapsed: 0 };
     constructor(
         position: { x: number, y: number },
         imageSource: string,
+        frames: { max: number, hold: number } = { max: 1, hold: 10 },
         offset: { x: number, y: number } = { x: 0, y: 0 },
         scale: number = 1,
-        // velocity: { x: number, y: number },
-        // frames: { max: number, hold: number },
-        // Animation: Animation,
-        // animate = false,
+        animation: Animation = { 'idle': 1 },
     ) {
         super(position, imageSource, offset, scale);
+        this.frames.max = frames.max;
+        this.frames.hold = frames.hold;
+        this.image.onload = () => {
+            this.width = (this.image.width / this.frames.max) * scale
+            this.height = this.image.height * scale
+        }
+        this.animation = animation;
     }
 
     setPosition(x: number, y: number) {

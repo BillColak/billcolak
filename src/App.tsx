@@ -10,16 +10,14 @@ import Game from "./Game/Game";
 function App() {
   return (
       <BrowserRouter>
-          {/*<EventsProvider value={eventsValue}>*/}
               <Routes>
                   <Route path="/" element={<DefaultLayout />}>
                       <Route index element={<Home />} />
                       <Route path="/Contact" element={<Contact />} />
                       <Route path="/Resume" element={<Resume />} />
+                      <Route path="/Game" element={<Game />} />
                   </Route>
-                  <Route path="/Game" element={<Game />} />
               </Routes>
-          {/*</EventsProvider>*/}
       </BrowserRouter>
   );
 }

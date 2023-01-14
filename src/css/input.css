@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+canvas {
+    touch-action: none;
+}
+
+.htmlScreen iframe{
+    width: 1184px;
+    height: 784px;
+    border: none;
+    border-radius: 20px;
+    background: black;
+}
+
+
+@font-face {
+    font-family: "Mavis";
+    src: url("/public/Fonts/WEB/MAVISRegular.woff") format("woff");
+}
