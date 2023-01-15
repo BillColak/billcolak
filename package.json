@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^2.0.13",
     "@react-three/drei": "^9.48.1",
     "@react-three/fiber": "^8.9.1",
     "@splinetool/loader": "^0.9.168",

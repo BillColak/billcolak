@@ -1,19 +1,19 @@
-import {ContactShadows,   Float, Html, PresentationControls, Text, useGLTF } from "@react-three/drei";
-
-
+import {ContactShadows, Float, Html, PresentationControls, Text, useGLTF } from "@react-three/drei";
 
 
 // todo open + close laptop, some kind of animation when waiting for model to load https://codesandbox.io/s/q23sw
 // zoom in on laptop when clicked
 // check https://codesandbox.io/s/interactive-spline-scene-live-html-f79ucc?file=/src/App.js:278-292
 // todo Suspense?
-
 // TODO OPTIMIZE WITH DRACO?
 // SAME PROJECT BY PMDRS https://codesandbox.io/s/9keg6?file=/src/HeroPage.js
+
+
 
 export default function Laptop() {
 
     const computer = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf')
+    // const computer = useGLTF('iphone_12_pro/scene.gltf')
 
 
     return (
@@ -37,7 +37,7 @@ export default function Laptop() {
                         width={2.5}
                         height={1.65}
                         intensity={65}
-                        color={'#ff6900'} // todo change this color to admin
+                        color={'#4f46e5'} // todo change this color to admin
                         rotation={[0.1, Math.PI, 0]}
                         position={[0, 0.55, -1.55]}
                     />
@@ -46,7 +46,7 @@ export default function Laptop() {
                         {/* iframe Website */}
                         <Html
                             transform
-                            wrapperClass="htmlScreen"
+                            wrapperClass="computerHtmlScreen"
                             distanceFactor={ 1 }
                             position={[0, 1.56, -1.4]}
                             rotation-x={-0.256}
@@ -62,7 +62,6 @@ export default function Laptop() {
                         maxWidth={ 2 }
                         textAlign={ 'center' }
                     >Bill Colak</Text>
-                {/*    todo change font to mavis might have to convert to typeface https://threejs-journey.com/lessons/3d-text-with-r3f#text3d-helper*/}
                 </Float>
             </PresentationControls>
 

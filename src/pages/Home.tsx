@@ -15,6 +15,8 @@ import Ball from "../components/ThreeComponents/Ball";
 import {useControls} from "leva";
 import Arch from "../components/ThreeComponents/Arch";
 import Laptop from "../components/Laptop/Laptop";
+import {Phone} from "../components/iPhone/iPhone";
+
 
 
 // todo add debug panel instead of updating state
@@ -125,7 +127,8 @@ function Experience() {
 
             {/*/>*/}
 
-            <Laptop/>
+            {/*<Laptop/>*/}
+            <Phone/>
 
             {/*<mesh position-y={ 0 } rotation-x={ - Math.PI * 0.5 } scale={ 20 }>*/}
             {/*    <planeGeometry  />*/}
@@ -153,25 +156,26 @@ export default function Home() {
 
                 <Canvas //wtf does Canvas do?
                     // all these are pretty much default values
-                    dpr={[1, 2]}
-                    gl={{
-                        alpha: true,
-                        antialias: true,
-                        toneMapping: THREE.ACESFilmicToneMapping,
-                        outputEncoding: THREE.sRGBEncoding,
-                    }}
+                    // dpr={[1, 2]}
+                    // gl={{
+                    //     alpha: true,
+                    //     antialias: true,
+                    //     toneMapping: THREE.ACESFilmicToneMapping,
+                    //     outputEncoding: THREE.sRGBEncoding,
+                    // }}
                     // orthographic
-                    camera={ {
-                        fov: 45,
-                        near: 0.1,
-                        far: 200,
-                        position: [ 3, 2, 4 ], // use the third index to bring the camera closer.
-                        zoom: 1
-                    } }
+                    // camera={ {
+                    //     fov: 45,
+                    //     near: 0.1,
+                    //     far: 200,
+                    //     position: [ 3, 2, 4 ], // use the third index to bring the camera closer.
+                    //     zoom: 1
+                    // } }
                 >
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                     <Experience />
+
                 </Canvas>
             </div>
         </>

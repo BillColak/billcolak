@@ -1,42 +1,19 @@
 import {useEffect, useMemo, useRef} from "react";
-import {Character, Sprite, GameObject} from "./GameComponents/Sprites";
-import PTown from "../assets/GameAssets/Pellet Town.png";
-import PlayerImages from "../assets/GameAssets/_PNG/Warrior_walk_run.png";
-import PlayerImages2 from "../assets/GameAssets/Player/R_Down/tile024.png";
-import villager from "../assets/GameAssets/playerDown.png";
-import AnimatedTree1 from "../assets/GameAssets/Animated Tree1.png";
+import {Character, Sprite, GameObject, Boundary} from "./GameComponents/Sprites";
+import backgroundImage from "../assets/GameAssets/Pellet Town.png";
+import foregroundImage from "../assets/GameAssets/foregroundObjects.png";
+import playerDown from "../assets/GameAssets/playerDown.png";
+import playerUp from "../assets/GameAssets/playerUp.png";
+import playerLeft from "../assets/GameAssets/playerLeft.png";
+import playerRight from "../assets/GameAssets/playerRight.png";
 import {collisions} from "./GameComponents/collisions";
 
 // https://threejs.org/examples/#webgl_interactive_voxelpainter would it be possible to do this in react-three-fiber? Simon Dev...
 
 
 document.body.style.overflow = "hidden";
-// const offset = {x: window.innerWidth / 2 - 192 * 3, y: window.innerHeight / 2 - 200 };
 const offset = { x:-725, y:-650 };
 
-
-class Boundary implements GameObject {
-    static width = 48;
-    static height = 48;
-    width: number;
-    height: number;
-    position: {x: number, y: number};
-    constructor(position: {x: number, y: number}) {
-        this.position = position;
-        this.width = 48;
-        this.height = 48;
-    }
-
-    draw(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = "red";
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-
-    move(x: number, y: number): void {
-        this.position.x += x;
-        this.position.y += y;
-    }
-}
 
 const collisionMap = []
 for (let i = 0; i < collisions.length; i += 70) {
@@ -74,23 +51,30 @@ export default function Game() {
             x: offset.x,
             y: offset.y,
         },
-        PTown,
+        backgroundImage,
+    );
+
+    const foreground = new Sprite(
+        {
+            x: offset.x,
+            y: offset.y,
+        },
+        foregroundImage,
     );
 
     const Player = new Character(
         {x: window.innerWidth / 2 - 192 * 3, y: window.innerHeight / 2 - 200 },
-        villager,
-        {max:4, hold: 10},
+        playerDown,
+        { max:4, hold: 10 },
+        {
+            up: playerUp,
+            down: playerDown,
+            left: playerLeft,
+            right: playerRight
+        },
     );
 
-    const tree = new Sprite(
-        {x: 100, y: 100},
-        AnimatedTree1,
-    )
-
-    const testBoundary = new Boundary({x: window.innerWidth / 2 - 192 * 3, y: window.innerHeight / 2 - 200 });
-
-    const movables = [background, ...boundaries];
+    const movables = [background, ...boundaries, foreground];
 
     function rectangularCollision(r1: GameObject, r2: GameObject): boolean{
         return (
@@ -100,6 +84,21 @@ export default function Game() {
             r1.position.y + r1.height >= r2.position.y
         )
     }
+
+    function handleCollision(x_velocity: number, y_velocity: number, state: boolean){
+        for (let i = 0; i < boundaries.length; i++) {
+            const boundary = boundaries[i];
+            if(rectangularCollision(Player, {...boundary, position: {x: boundary.position.x + x_velocity, y: boundary.position.y + y_velocity}}
+            )){
+                console.log("collision")
+                state = false;
+                break;
+            }
+        }
+        Player.moving = state;
+        if(state) movables.forEach(movable => movable.move(x_velocity, y_velocity));
+    }
+
 
     useEffect(() => {
         const c = canvasRef.current?.getContext("2d");
@@ -113,45 +112,49 @@ export default function Game() {
                 background.update(c)
                 boundaries.forEach(boundary => {
                     boundary.draw(c)
-                    // if(rectangularCollision(Player, boundary)){
-                    //     console.log("collision")
-                    // }
                 })
-
-                // testBoundary.draw(c);
-                // if(rectangularCollision(Player, testBoundary)) console.log("collision");
 
                 Player.setPosition(c.canvas.width / 2 - 192 / 4 / 2, c.canvas.height / 2 - 68 / 2 )
                 Player.update(c)
+                foreground.update(c)
+
 
                 let moving = true;
+                Player.moving = false;
 
-                if(keys.w.pressed && keys.a.pressed) movables.forEach(movable => movable.move(speed.normalized, speed.normalized));
-                else if(keys.w.pressed && keys.d.pressed) movables.forEach(movable => movable.move(-speed.normalized, speed.normalized));
-                else if(keys.s.pressed && keys.a.pressed) movables.forEach(movable => movable.move(speed.normalized, -speed.normalized));
-                else if(keys.s.pressed && keys.d.pressed) movables.forEach(movable => movable.move(-speed.normalized, -speed.normalized));
-
-                // todo
-                if(keys.w.pressed){
-                    for (let i = 0; i < boundaries.length; i++) {
-                        const boundary = boundaries[i];
-                        if(rectangularCollision(
-                            Player,
-                            {...boundary, position: {x: boundary.position.x, y: boundary.position.y + speed.normal}}
-                        )){
-                            console.log("collision")
-                            moving = false;
-                            break;
-                        }
-                    }
-                    if(moving) movables.forEach(movable => movable.move(0, speed.normal));
+                if(keys.w.pressed && keys.a.pressed) {
+                    handleCollision(speed.normalized, speed.normalized, moving);
+                    Player.image.src = playerUp;
+                }
+                else if(keys.w.pressed && keys.d.pressed) {
+                    handleCollision(-speed.normalized, speed.normalized, moving);
+                    Player.image.src = playerUp;
+                }
+                else if(keys.s.pressed && keys.a.pressed) {
+                    handleCollision(speed.normalized, -speed.normalized, moving);
+                    Player.image.src = playerDown;
+                }
+                else if(keys.s.pressed && keys.d.pressed) {
+                    handleCollision(-speed.normalized, -speed.normalized, moving)
+                    Player.image.src = playerDown;
                 }
 
-                else if(keys.a.pressed) movables.forEach(movable => movable.move(speed.normal, 0));
-                else if(keys.s.pressed) movables.forEach(movable => movable.move(0, -speed.normal));
-                else if(keys.d.pressed) movables.forEach(movable => movable.move(-speed.normal, 0));
-
-                // if(Player.)
+                if(keys.w.pressed) {
+                    handleCollision(0, speed.normal, moving);
+                    Player.image.src = playerUp;
+                }
+                else if(keys.a.pressed) {
+                    handleCollision(speed.normal, 0, moving);
+                    Player.image.src = playerLeft;
+                }
+                else if(keys.s.pressed) {
+                    handleCollision(0, -speed.normal, moving);
+                    Player.image.src = playerDown;
+                }
+                else if(keys.d.pressed) {
+                    handleCollision(-speed.normal, 0, moving);
+                    Player.image.src = playerRight;
+                }
 
                 animationFrameId = window.requestAnimationFrame(render)
             }

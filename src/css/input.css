@@ -6,7 +6,7 @@ canvas {
     touch-action: none;
 }
 
-.htmlScreen iframe{
+.computerHtmlScreen iframe{
     width: 1184px;
     height: 784px;
     border: none;
@@ -14,6 +14,14 @@ canvas {
     background: black;
 }
 
+.phoneHtmlScreen iframe{
+    position: relative;
+    background: white;
+    border-radius: 37.5px;
+    width: 385px;
+    height: 825px;
+    overflow: scroll;
+}
 
 @font-face {
     font-family: "Mavis";
