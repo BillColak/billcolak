@@ -1,15 +1,13 @@
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import {Suspense, useLayoutEffect} from "react";
+
 import {ContactShadows, Float, Html, PresentationControls, Text, useGLTF, useMask} from "@react-three/drei";
 import Example from "./Embed";
-import useSpline from "@splinetool/r3f-spline";
+
 import {useControls} from "leva";
 
 
 export function Phone() {
     const phone = useGLTF('https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/iphone-x/model.gltf')
-    // console.log('phone: ',phone)
+
     const { position, scale } = useControls({
         position:
             {
@@ -35,16 +33,6 @@ export function Phone() {
                 config={ { mass: 2, tension: 400 } }
                 snap={ { mass: 4, tension: 400 } }
             >
-                    {/* Screen Light */}
-
-                    <rectAreaLight
-                        width={2.5}
-                        height={1.65}
-                        intensity={65}
-                        color={'#4f46e5'}
-                        rotation={[0.1, Math.PI, 0]}
-                        position={[0, 0.55, -1.55]}
-                    />
 
                     {/* MacBook Model */}
                     <primitive object={ phone.scene } position-y={ -1 }>

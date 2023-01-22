@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-canvas {
-    touch-action: none;
-}
+/*canvas {*/
+/*    touch-action: none;*/
+/*}*/
 
 .computerHtmlScreen iframe{
     width: 1184px;

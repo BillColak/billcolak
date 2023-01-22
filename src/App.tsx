@@ -5,6 +5,7 @@ import Contact from "./pages/Contact";
 import DefaultLayout from "./pages/layouts/DefaultLayout";
 import Resume from "./pages/Resume";
 import Game from "./Game/Game";
+import Cupola from "./pages/Cupola";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
                       <Route path="/Resume" element={<Resume />} />
                       <Route path="/Game" element={<Game />} />
                   </Route>
+                  <Route path="/Cupola" element={<Cupola />} />
               </Routes>
       </BrowserRouter>
   );

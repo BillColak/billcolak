@@ -97,7 +97,7 @@ export class Character extends Sprite {
         position: { x: number, y: number },
         imageSource: string,
         frames: { max: number, hold: number } = { max: 1, hold: 10 },
-        animations: Animation,
+        animations:any= <any>{},
         offset: { x: number, y: number } = { x: 0, y: 0 },
         scale: number = 1,
     ) {

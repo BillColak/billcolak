@@ -8,7 +8,22 @@ import playerLeft from "../assets/GameAssets/playerLeft.png";
 import playerRight from "../assets/GameAssets/playerRight.png";
 import {collisions} from "./GameComponents/collisions";
 
-// https://threejs.org/examples/#webgl_interactive_voxelpainter would it be possible to do this in react-three-fiber? Simon Dev...
+import WarriorRunLeft from "../assets/GameAssets/Player/Run/RunLeft.png";
+import WarriorRunRight from "../assets/GameAssets/Player/Run/RunRight.png";
+import WarriorRunDown from "../assets/GameAssets/Player/Run/RunDown.png";
+import WarriorRunUp from "../assets/GameAssets/Player/Run/RunUp.png";
+
+import WarriorIdleLeft from "../assets/GameAssets/Player/Idle/IdleLeft.png";
+import WarriorIdleRight from "../assets/GameAssets/Player/Idle/IdleRight.png";
+import WarriorIdleDown from "../assets/GameAssets/Player/Idle/IdleDown.png";
+import WarriorIdleUp from "../assets/GameAssets/Player/Idle/IdleUp.png";
+
+import WarriorAttackLeft from "../assets/GameAssets/Player/SwordAttack/SwordAttackLeft.png";
+import WarriorAttackRight from "../assets/GameAssets/Player/SwordAttack/SwordAttackRight.png";
+import WarriorAttackDown from "../assets/GameAssets/Player/SwordAttack/SwordAttackDown.png";
+import WarriorAttackUp from "../assets/GameAssets/Player/SwordAttack/SwordAttackUp.png";
+import WarriorAttack360 from "../assets/GameAssets/Player/SwordAttack/SwordAttack360.png";
+
 
 
 document.body.style.overflow = "hidden";
@@ -62,17 +77,19 @@ export default function Game() {
         foregroundImage,
     );
 
-    const Player = new Character(
+    const Player = new Character (
         {x: window.innerWidth / 2 - 192 * 3, y: window.innerHeight / 2 - 200 },
-        playerDown,
-        { max:4, hold: 10 },
+        WarriorIdleDown,
+        { max: 12, hold: 10 },
         {
-            up: playerUp,
-            down: playerDown,
-            left: playerLeft,
-            right: playerRight
+            up: WarriorRunUp,
+            down: WarriorRunDown,
+            left: WarriorRunLeft,
+            right: WarriorRunRight,
         },
     );
+
+
 
     const movables = [background, ...boundaries, foreground];
 
@@ -124,36 +141,36 @@ export default function Game() {
 
                 if(keys.w.pressed && keys.a.pressed) {
                     handleCollision(speed.normalized, speed.normalized, moving);
-                    Player.image.src = playerUp;
+                    Player.image.src = WarriorRunUp;
                 }
                 else if(keys.w.pressed && keys.d.pressed) {
                     handleCollision(-speed.normalized, speed.normalized, moving);
-                    Player.image.src = playerUp;
+                    Player.image.src =  WarriorRunUp;
                 }
                 else if(keys.s.pressed && keys.a.pressed) {
                     handleCollision(speed.normalized, -speed.normalized, moving);
-                    Player.image.src = playerDown;
+                    Player.image.src = WarriorRunDown;
                 }
                 else if(keys.s.pressed && keys.d.pressed) {
                     handleCollision(-speed.normalized, -speed.normalized, moving)
-                    Player.image.src = playerDown;
+                    Player.image.src = WarriorRunDown;
                 }
 
                 if(keys.w.pressed) {
                     handleCollision(0, speed.normal, moving);
-                    Player.image.src = playerUp;
+                    Player.image.src = WarriorRunUp;
                 }
                 else if(keys.a.pressed) {
                     handleCollision(speed.normal, 0, moving);
-                    Player.image.src = playerLeft;
+                    Player.image.src = WarriorRunLeft;
                 }
                 else if(keys.s.pressed) {
                     handleCollision(0, -speed.normal, moving);
-                    Player.image.src = playerDown;
+                    Player.image.src = WarriorRunDown;
                 }
                 else if(keys.d.pressed) {
                     handleCollision(-speed.normal, 0, moving);
-                    Player.image.src = playerRight;
+                    Player.image.src = WarriorRunRight;
                 }
 
                 animationFrameId = window.requestAnimationFrame(render)
@@ -198,6 +215,12 @@ export default function Game() {
                 keys.d.pressed = false;
                 break;
         }
+    });
+
+    window.addEventListener('mousedown', (e) => {
+    // todo need to get the direction of the attacks, maybe use angles?
+
+        console.log(Player)
     });
 
 
