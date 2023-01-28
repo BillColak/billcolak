@@ -3,7 +3,7 @@ import {Canvas, useLoader} from "@react-three/fiber";
 import * as THREE from "three";
 
 function PlaneComponent(){
-    const texture = useLoader(THREE.TextureLoader, `/Img1.jpg`)
+    const texture = useLoader(THREE.TextureLoader, `https://source.unsplash.com/random/1920x1080`)
     const scale = useAspect(1024, 512)
     return (
         <Plane  scale={scale} >
