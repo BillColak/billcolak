@@ -1,48 +1,35 @@
-import {Html, OrbitControls, shaderMaterial, useTexture} from "@react-three/drei";
-import {Canvas, extend} from "@react-three/fiber";
+import { Plane,  useAspect, } from "@react-three/drei";
+import {Canvas, useLoader} from "@react-three/fiber";
 import * as THREE from "three";
-import {useControls} from "leva";
-// import {texture} from "three/examples/jsm/nodes/shadernode/ShaderNodeBaseElements";
-import CupolaShader  from "../components/ISS/cupolaShader";
 
-
-
-const aspectRatio = (window.innerWidth / window.innerHeight)
-const sizes = {
-    width: 35 * aspectRatio,
-    height: 35
+function PlaneComponent(){
+    const texture = useLoader(THREE.TextureLoader, `/Img1.jpg`)
+    const scale = useAspect(1024, 512)
+    return (
+        <Plane  scale={scale} >
+            <meshPhongMaterial map={texture} color="grey" />
+        </Plane>
+    )
 }
-console.log(aspectRatio)
 
 export default function Cupola() {
-
     return (
         <>
             <div className="w-full h-screen">
-                <Canvas
-                    dpr={[1, 1.5]}
-                    camera={{
-                        fov: 45,
-                        near: 1,
-                        far: 100,
-                        position: [0, 0, 10],
-                        zoom: 1
-                }}>
+                <Canvas>
                     <color args={ ['#695b5b']} attach={"background"} />
 
                     <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
-                    <CupolaShader/>
-                    {/*<mesh scale={ 1 }>*/}
-                    {/*    <planeGeometry args={[sizes.width, sizes.height]} />*/}
-                    {/*    <meshStandardMaterial color={'greenyellow'} />*/}
-                    {/*</mesh>*/}
-                    <OrbitControls />
+
+                    <PlaneComponent />
+
                 </Canvas>
             </div>
         </>
     )
 }
+
 
 //
 // let textures = [`/images/Scptr.png`].map((url) =>

@@ -1,5 +1,5 @@
 
-export default function CupolaView() {
+export default function Globe() {
     return (
         <>
 
