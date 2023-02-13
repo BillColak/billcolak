@@ -6,6 +6,7 @@ import DefaultLayout from "./pages/layouts/DefaultLayout";
 import Resume from "./pages/Resume";
 import Game from "./Game/Game";
 import Cupola from "./pages/Cupola";
+import Test from "./pages/Test";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
                       <Route path="/Game" element={<Game />} />
                   </Route>
                   <Route path="/Cupola" element={<Cupola />} />
+                  <Route path="/Test" element={<Test />} />
               </Routes>
       </BrowserRouter>
   );

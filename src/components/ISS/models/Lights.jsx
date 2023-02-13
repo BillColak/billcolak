@@ -7,7 +7,6 @@ import { DirectionalLightHelper, Vector3 } from "three";
 export default function Lights() {
   const light = useRef();
   const lightGroup = useRef();
-  const orbit = useRef();
   const lightHelper = useHelper(light, DirectionalLightHelper, 2);
   const { gl } = useThree();
   const start = useRef(new Vector3(2, 0, 2));
@@ -47,11 +46,23 @@ export default function Lights() {
   return (
     <>
       <group ref={lightGroup}>
-        <directionalLight layers={1} castShadow ref={light} intensity={Intensity} position={start.current}/>
+        <directionalLight
+            castShadow
+            ref={light}
+            shadowMapHeight={512}
+            shadowMapWidth={512}
+            shadowCameraTop={10}
+            shadowCameraBottom={-10}
+            shadowCameraLeft={-10}
+            shadowCameraRight={10}
+            shadowCameraNear={0.5}
+            shadowCameraFar={100}
+            intensity={Intensity}
+            position={start.current}
+        />
       </group>
 
-      <ambientLight layers={1} intensity={0.3} />
-      <OrbitControls ref={orbit} />
+      <ambientLight intensity={0.2} />
     </>
   );
 }

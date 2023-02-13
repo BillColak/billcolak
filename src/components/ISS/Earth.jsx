@@ -1,175 +1,145 @@
-
+import {useEffect, useRef, useState} from "react";
+import Globe from "react-globe.gl";
+import * as d3 from "d3"
 import * as THREE from "three";
-import {useMemo, useRef} from "react";
-import {useFrame, useLoader} from "@react-three/fiber";
-import {Stars, useTexture} from "@react-three/drei";
-import {BackSide, Color, IcosahedronGeometry, MeshPhysicalMaterial, ShaderMaterial, Vector3} from "three";
-import CustomShaderMaterial from "three-custom-shader-material";
+// import countries from '/custom.geo.json';
+import {useControls} from "leva";
 
-const haloShader = {
-    v: `
-  varying vec3 vVertexWorldPosition;
-  varying vec3 vVertexNormal;
-  
-  void main() {
-  
-    vVertexNormal = normalize(normalMatrix * normal);
-  
-    vVertexWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
-  
-    // set gl_Position
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-    `,
-    f: `
-  uniform vec3 glowColor;
-uniform float coeficient;
-uniform float power;
 
-varying vec3 vVertexNormal;
-varying vec3 vVertexWorldPosition;
 
-void main() {
-  vec3 worldCameraToVertex = vVertexWorldPosition - cameraPosition;
-  vec3 viewCameraToVertex = (viewMatrix * vec4(worldCameraToVertex, 0.0)).xyz;
-  viewCameraToVertex = normalize(viewCameraToVertex);
-  float intensity =
-      pow(coeficient + dot(vVertexNormal, viewCameraToVertex), power);
-
-  gl_FragColor = vec4(glowColor, intensity * 0.3  );
-}
-    `
+const map = {
+    "type": "Map",
 };
 
-function OuterGlow({ color, geometry }) {
-    const mat = useMemo(
-        () =>
-            new ShaderMaterial({
-                vertexShader: haloShader.v,
-                fragmentShader: haloShader.f,
-                uniforms: {
-                    coeficient: { value: 0.35},
-                    power: { value: 7 },
-                    glowColor: { value: new Color(color || "#6b7fff") }
-                },
-                side: BackSide,
-                transparent: true,
-                depthWrite: false
-            }),
-        []
-    );
-
-    return (
-        <group scale={[1.2, 1.2, 1.2]}>
-            <mesh material={mat} geometry={geometry} />
-        </group>
-    );
+function indexBy(list, iteratee, context) {
+    return list.reduce((map, obj) => {
+        const key = typeof iteratee === 'string' ? obj[iteratee] : iteratee.call(context, obj);
+        map[key] = obj;
+        return map;
+    }, {});
 }
 
-function InnerGlow({ color, geometry }) {
-    const mat = useMemo(
-        () =>
-            new ShaderMaterial({
-                vertexShader: haloShader.v,
-                fragmentShader: haloShader.f,
-                uniforms: {
-                    coeficient: { value: 1 },
-                    power: { value: 1},
-                    glowColor: { value: new Color(color || "#6b7fff") }
-                },
-                transparent: true,
-                depthWrite: true
-            }),
-        []
-    );
 
-    return (
-        <group scale={[1.0001, 1.0001, 1.0001]}>
-            <mesh material={mat} geometry={geometry} />
-        </group>
-    );
-}
+const airportParse = ([airportId, name, city, country, iata, icao, lat, lng, alt, timezone, dst, tz, type, source]) => ({ airportId, name, city, country, iata, icao, lat, lng, alt, timezone, dst, tz, type, source });
+const routeParse = ([airline, airlineId, srcIata, srcAirportId, dstIata, dstAirportId, codeshare, stops, equipment]) => ({ airline, airlineId, srcIata, srcAirportId, dstIata, dstAirportId, codeshare, stops, equipment});
 
-function Halo(props) {
-    const g = useMemo(() => new IcosahedronGeometry(1, 32), []);
-    return (
-        <group >
-            <InnerGlow geometry={g} {...props} />
-            <OuterGlow geometry={g} {...props} />
-        </group>
-    );
-}
+const COUNTRY = 'Canada';
+const OPACITY = 0.3;
 
 
 export default function Earth(props) {
-    const {envMapIntensity} = props;
+    const globeEl = useRef();
+    const [airports, setAirports] = useState([]);
+    const [routes, setRoutes] = useState([]);
+    const [hoverArc, setHoverArc] = useState();
+    const [popData, setPopData] = useState([]);
 
-    const [dayMap, nightMap, normalMap, secularMap, roughness, bumpMap, cloudsMap] = useLoader(THREE.TextureLoader,
-        [
-            '/GlobeTextures/earth/textures/8k_earth_daymap.jpg',
-            '/GlobeTextures/earth/textures/8k_earth_nightmap.jpg',
-            '/GlobeTextures/earth/textures/8k_earth_normal_map.jpg',
-            '/GlobeTextures/earth/textures/water_8k.png',
-            '/GlobeTextures/earth/textures/roughness.jpg',
-            '/GlobeTextures/earth/textures/elev_bump_8k.jpg',
-            '/GlobeTextures/earth/textures/8k_earth_clouds.jpg'
-        ]
-    );
+    const {color, atmosphere} = useControls('Color',{
+        color: {value: '#e614b4', label: 'color'},
+        atmosphere: {value: '#e614b4', label: 'atmosphere'},
+    });
 
-    const earthRef = useRef();
-    const cloudsRef = useRef();
 
-    // useFrame(({ clock }) => {
-    //     const elapsedTime = clock.getElapsedTime();
-        // earthRef.current.rotation.y = elapsedTime / 6;
-        // cloudsRef.current.rotation.y = elapsedTime / 48;
-    // });
+    useEffect(() => {
+        // load data
+        fetch('/custom.geo.json').then(res => res.text())
+            // .then(csv => d3.csvParse(csv, ({ lat, lng, pop }) => ({ lat: +lat, lng: +lng, pop: +pop })))
+            // .then(setPopData);
+            .then(data => {setPopData(JSON.parse(data))});
 
-    const uniforms = useMemo(
-        () => ({
-            uDay: { value: dayMap },
-            uNight: { value: nightMap },
-            uLight: { value: new Vector3().setScalar(2) }
-        }),
-        []
-    );
+        Promise.all([
+            fetch('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat').then(res => res.text())
+                .then(d => d3.csvParseRows(d, airportParse)),
+            fetch('https://raw.githubusercontent.com/jpatokal/openflights/master/data/routes.dat').then(res => res.text())
+                .then(d => d3.csvParseRows(d, routeParse))
+        ]).then(([airports, routes]) => {
+
+            const filteredAirports = airports.filter(d => d.country === COUNTRY);
+            const byIata = indexBy(filteredAirports, 'iata', false);
+
+            const filteredRoutes = routes
+                .filter(d => byIata.hasOwnProperty(d.srcIata) && byIata.hasOwnProperty(d.dstIata)) // exclude unknown airports
+                .filter(d => d.stops === '0') // non-stop flights only
+                .map(d => Object.assign(d, {
+                    srcAirport: byIata[d.srcIata],
+                    dstAirport: byIata[d.dstIata]
+                }))
+                .filter(d => d.srcAirport.country === COUNTRY && d.dstAirport.country === COUNTRY); // domestic routes within country
+
+            setAirports(filteredAirports);
+            setRoutes(filteredRoutes);
+        });
+    }, []);
+
+
+    useEffect(() => {
+        // Auto-rotate
+        globeEl.current.controls().autoRotate = true;
+        globeEl.current.controls().autoRotateSpeed = 0.1;
+    }, []);
+
+    // const weightColor = d3.scaleSequentialSqrt(d3.interpolateYlOrRd)
+    //     .domain([0, 1e7]);
+
+
     return (
-        <>
-            <ambientLight intensity={1} />
-            <pointLight color="#f6f3ea" position={[2, 0, 5]} intensity={1.2} />
-            <Stars
-                radius={300}
-                depth={60}
-                count={20000}
-                factor={7}
-                saturation={0}
-                fade={true}
-            />
-            <Halo color="#6b7fff" />
-            <group>
+        <Globe
+            ref={globeEl}
+            atmosphereColor={atmosphere}
+            backgroundColor={'#181452'}
+            globeMaterial={
+                new THREE.MeshPhongMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 0.1,
+                    shininess: 0,
+                })
+            }
 
-                {/*<mesh ref={cloudsRef} position={[0, 0, 0]} >*/}
-                {/*    <sphereGeometry args={[1.005, 64, 64]} />*/}
-                {/*    <meshPhongMaterial*/}
-                {/*        map={cloudsMap}*/}
-                {/*        opacity={0.2}*/}
-                {/*        depthWrite={true}*/}
-                {/*        transparent={true}*/}
-                {/*        side={THREE.DoubleSide}*/}
-                {/*        envMapIntensity={envMapIntensity}*/}
-                {/*    />*/}
-                {/*</mesh>*/}
-                <mesh ref={earthRef} position={[0, 0, 0]} >
-                    <sphereGeometry args={[1, 64, 64]} />
-                    <meshPhongMaterial
-                        map={dayMap}
-                        normalMap={normalMap}
-                        roughnessMap={roughness}
-                        bumpMap={bumpMap}
-                        envMapIntensity={envMapIntensity}
-                    />
-                </mesh>
-            </group>
-        </>
+            // globeImageUrl="/GlobeTextures/earth/world.jpg"
+            // bumpImageUrl="/GlobeTextures/earth/bump.jpg"
+            // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+
+            // hexBinPointsData={popData}
+            // hexBinPointWeight="pop"
+            // hexAltitude={d => d.sumWeight * 6e-8}
+            // hexBinResolution={4}
+            // hexTopColor={d => weightColor(d.sumWeight)}
+            // hexSideColor={d => weightColor(d.sumWeight)}
+            // hexBinMerge={true}
+
+
+            arcsData={routes}
+            arcLabel={d => `${d.airline}: ${d.srcIata} &#8594; ${d.dstIata}`}
+            arcStartLat={d => +d.srcAirport.lat}
+            arcStartLng={d => +d.srcAirport.lng}
+            arcEndLat={d => +d.dstAirport.lat}
+            arcEndLng={d => +d.dstAirport.lng}
+            arcDashLength={0.4}
+            arcDashGap={0.2}
+            arcDashAnimateTime={1500}
+            arcsTransitionDuration={0}
+            arcColor={d => {
+                // const op = !hoverArc ? OPACITY : d === hoverArc ? 0.9 : OPACITY / 4;
+                return [`#e614b4`, `#27a9e3`];
+            }}
+            onArcHover={setHoverArc}
+
+            pointsData={airports}
+            pointColor={() => 'orange'}
+            pointAltitude={0}
+            pointRadius={0.1}
+            pointsMerge={true}
+
+
+
+
+            hexPolygonsData={popData.features}
+            hexPolygonColor={() => 'rgba(82,234,82,1)'}
+            hexPolygonResolution={3}
+            hexPolygonMargin={0.5}
+            enablePointerInteraction={false}
+            waitForGlobeReady={true}
+        />
     );
 }

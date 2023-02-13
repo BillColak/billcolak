@@ -22,10 +22,10 @@ export default function Resume() {
 
 
     return (
-        <div className="bg-sky-700">
+        <div className="bg-sky-700 font-mavis  font-semibold">
             <section className="Education v-flex justify-center items-center">
                 <div className="v-flex items-start w-fit">
-                    <h1 className="text-4xl font-bold">Education</h1>
+                    <h1 className="text-8xl font-bold">Education</h1>
                     <div className="">
                         Bachelor of Commerce, Finance
                         Bachelor of Science in Computer Science

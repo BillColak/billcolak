@@ -1,97 +1,74 @@
-import { useMemo } from "react";
-import { BackSide, Color, IcosahedronGeometry, ShaderMaterial } from "three";
+import { Color, IcosahedronGeometry, BackSide } from 'three'
+import { shaderMaterial } from '@react-three/drei'
+import { extend } from '@react-three/fiber'
 
-const haloShader = {
-  v: `
-  varying vec3 vVertexWorldPosition;
-  varying vec3 vVertexNormal;
-  
-  void main() {
-  
-    vVertexNormal = normalize(normalMatrix * normal);
-  
-    vVertexWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
-  
-    // set gl_Position
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-    `,
-  f: `
-  uniform vec3 glowColor;
-uniform float coeficient;
-uniform float power;
+const HaloMaterial = shaderMaterial(
+    {
+        coeficient: 1,
+        power: 1.7,
+        color: new Color('#27a9e3')
+    },
+    /* glsl */ `
+    varying vec3 vVertexWorldPosition;
+    varying vec3 vVertexNormal;
+    
+    void main() {
+      vVertexNormal = normalize(normalMatrix * normal);
+      vVertexWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
+    
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+    /* glsl */ `
+    uniform vec3 color;
+    uniform float coeficient;
+    uniform float power;
 
-varying vec3 vVertexNormal;
-varying vec3 vVertexWorldPosition;
+    varying vec3 vVertexNormal;
+    varying vec3 vVertexWorldPosition;
 
-void main() {
-  vec3 worldCameraToVertex = vVertexWorldPosition - cameraPosition;
-  vec3 viewCameraToVertex = (viewMatrix * vec4(worldCameraToVertex, 0.0)).xyz;
-  viewCameraToVertex = normalize(viewCameraToVertex);
-  float intensity =
-      pow(coeficient + dot(vVertexNormal, viewCameraToVertex), power);
+    void main() {
+      vec3 worldCameraToVertex = vVertexWorldPosition - cameraPosition;
+      vec3 viewCameraToVertex = (viewMatrix * vec4(worldCameraToVertex, 0.0)).xyz;
+      viewCameraToVertex = normalize(viewCameraToVertex);
+      float intensity = pow(coeficient + dot(vVertexNormal, viewCameraToVertex), power);
 
-  gl_FragColor = vec4(glowColor, intensity * 0.3  );
-}
-    `
-};
+      gl_FragColor = vec4(color, intensity * 0.3 );
+    }
+  `
+)
+extend({ HaloMaterial })
 
-function Outer({ color, geometry }) {
-  const mat = useMemo(
-    () =>
-      new ShaderMaterial({
-        vertexShader: haloShader.v,
-        fragmentShader: haloShader.f,
-        uniforms: {
-          coeficient: { value: 0.25 },
-          power: { value: 5 },
-          glowColor: { value: new Color(color || "#6b7fff") }
-        },
-        side: BackSide,
-        transparent: true,
-        depthWrite: false
-      }),
-    []
-  );
+const geometry = new IcosahedronGeometry(1, 32)
 
-  return (
-    <group scale={[1.2, 1.2, 1.2]}>
-      <mesh material={mat} geometry={geometry} />
-    </group>
-  );
+function Outer({ color }) {
+    return (
+        <mesh scale={1.2} geometry={geometry}>
+            <haloMaterial
+                color={color}
+                coeficient={0.25}
+                power={5}
+                side={BackSide}
+                transparent
+                depthWrite={false}
+            />
+        </mesh>
+    )
 }
 
-function Inner({ color, geometry }) {
-  const mat = useMemo(
-    () =>
-      new ShaderMaterial({
-        vertexShader: haloShader.v,
-        fragmentShader: haloShader.f,
-        uniforms: {
-          coeficient: { value: 1 },
-          power: { value: 1.7 },
-          glowColor: { value: new Color(color || "#6b7fff") }
-        },
-        transparent: true,
-        depthWrite: true
-      }),
-    []
-  );
-
-  return (
-    <group scale={[1.0001, 1.0001, 1.0001]}>
-      <mesh material={mat} geometry={geometry} />
-    </group>
-  );
+function Inner({ color }) {
+    return (
+        <mesh scale={1.0001} geometry={geometry}>
+            <haloMaterial color={color} transparent />
+        </mesh>
+    )
 }
 
 export default function Halo(props) {
-  const g = useMemo(() => new IcosahedronGeometry(1, 32), []);
-
-  return (
-    <group>
-      <Inner geometry={g} {...props} />
-      <Outer geometry={g} {...props} />
-    </group>
-  );
+    return (
+        <>
+            <Inner {...props} />
+            <Outer {...props} />
+        </>
+    )
 }

@@ -17,6 +17,7 @@ import Arch from "../components/ThreeComponents/Arch";
 import Laptop from "../components/Laptop/Laptop";
 import {Phone} from "../components/iPhone/iPhone";
 import {TextureLoader} from "three";
+import GlowButton from "../components/GlowButton";
 
 
 
@@ -152,6 +153,7 @@ export default function Home() {
             <div className="v-flex w-full h-[800px]">
 
                 This is the home page.
+
                 {/*<Spline scene="https://prod.spline.design/m7T1A1rThV4xWH5K/scene.splinecode" />*/}
 
                 {/*<Canvas shadows flat linear>*/}
@@ -170,12 +172,12 @@ export default function Home() {
                         toneMapping: THREE.ACESFilmicToneMapping,
                         outputEncoding: THREE.sRGBEncoding,
                     }}
-                    orthographic
+                    // orthographic
                     camera={ {
                         fov: 45,
                         near: 0.1,
-                        far: 200,
-                        position: [ 3, 2, 4 ], // use the third index to bring the camera closer.
+                        far: 100,
+                        position: [ 3, 2, 4], // use the third index to bring the camera closer.
                         zoom: 1
                     } }
                 >

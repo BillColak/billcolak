@@ -21,8 +21,8 @@ module.exports = {
         onyx: "#0E0E2C",
       },
       fontFamily: {
-        sans: ["Roboto", "sans-serif"],
         mavis: ["Mavis", "sans-serif"],
+        sans: ["Roboto", "sans-serif"],
       },
       dropShadow: {
         'bright': '0 15px 25px rgb(255,255,255)',
@@ -62,20 +62,29 @@ module.exports = {
           },
         '.btn-red': {
           backgroundColor: theme('colors.indigo.500'),
+          alignItems: 'center',
+          justifyContent: 'center',
           color: '#fff',
-          padding: '.5rem 1rem',
+          padding: '.25rem .5rem',
           borderRadius: '.25rem',
-          fontWeight: '600',
+          fontWeight: '800',
           '&:hover': {
             backgroundColor: theme('colors.indigo.600'),
           },
         },
-        // '.active': {
-        // backgroundColor: theme('colors.highlight'),
-        // borderRadius: '.5rem',
-        // padding: '.5rem 1rem',
-        // justifyContent: 'center',
-        // },
+        '.btn-glow': {
+          // --x-px: calc(var(--x) * 1px);
+          // --y-px: calc(var(--y) * 1px);
+          // --border: 2px;
+          // background: rgba(255, 255, 255, 0.125);
+          // border-radius: 0.5rem;
+          // overflow: hidden;
+
+
+          // backgroundColor: rgba(255, 255, 255, 0.125);
+
+        }
+
       })
     }),
   ],

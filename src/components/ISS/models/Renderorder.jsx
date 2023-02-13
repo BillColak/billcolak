@@ -3,9 +3,9 @@ import { useEffect } from "react";
 
 export default function RenderOrder() {
   const { camera, gl, scene } = useThree();
-  console.log('camera', camera,)
+  // console.log('camera', camera,)
   console.log('gl', gl)
-  console.log('scene', scene)
+  // console.log('scene', scene)
 
   useEffect(() => {
     gl.autoClear = false;
