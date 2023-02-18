@@ -18,6 +18,7 @@ import Laptop from "../components/Laptop/Laptop";
 import {Phone} from "../components/iPhone/iPhone";
 import {TextureLoader} from "three";
 import GlowButton from "../components/GlowButton";
+import {FBOParticles} from "../components/StrangeAttractor/Attractor";
 
 
 
@@ -172,7 +173,6 @@ export default function Home() {
                         toneMapping: THREE.ACESFilmicToneMapping,
                         outputEncoding: THREE.sRGBEncoding,
                     }}
-                    // orthographic
                     camera={ {
                         fov: 45,
                         near: 0.1,
@@ -181,10 +181,12 @@ export default function Home() {
                         zoom: 1
                     } }
                 >
+
+                    {/*<Experience />*/}
+                    <FBOParticles />
                     <OrbitControls />
-                    <ambientLight intensity={0.5} />
+                    {/*<ambientLight intensity={0.5} />*/}
                     <pointLight position={[10, 10, 10]} />
-                    <Experience />
                 </Canvas>
             </div>
         </>
