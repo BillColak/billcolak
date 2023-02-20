@@ -21,8 +21,14 @@ module.exports = {
         onyx: "#0E0E2C",
       },
       fontFamily: {
-        mavis: ["Mavis", "sans-serif"],
-        sans: ["Roboto", "sans-serif"],
+        mavis: ["Mavis", "sans"],
+        roboto: ["Roboto", "sans"],
+        roboto_slab: ["Roboto Slab", "serif"],
+        roboto_mono: ["Roboto Mono", "monospace"],
+        roboto_condensed: ["Roboto Condensed", "sans"],
+        spline: ["Spline", "sans"],
+        spline_mono: ["Spline Mono", "monospace"],
+        spline_sans_mono: ["Spline Sans Mono", "monospace"],
       },
       dropShadow: {
         'bright': '0 15px 25px rgb(255,255,255)',

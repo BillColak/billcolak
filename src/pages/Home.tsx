@@ -151,11 +151,7 @@ export default function Home() {
 
     return (
         <>
-            <div className="v-flex w-full h-[800px]">
-
-                This is the home page.
-
-                {/*<Spline scene="https://prod.spline.design/m7T1A1rThV4xWH5K/scene.splinecode" />*/}
+            <div className="v-flex w-full h-[800px] font-spline text-4xl ">
 
                 {/*<Canvas shadows flat linear>*/}
                 {/*    <Suspense fallback={null}>*/}
@@ -185,7 +181,7 @@ export default function Home() {
                     {/*<Experience />*/}
                     <FBOParticles />
                     <OrbitControls />
-                    {/*<ambientLight intensity={0.5} />*/}
+                    <ambientLight intensity={0.5} />
                     <pointLight position={[10, 10, 10]} />
                 </Canvas>
             </div>
