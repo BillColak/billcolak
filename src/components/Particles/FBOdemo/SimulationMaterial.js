@@ -2,10 +2,6 @@ import simulationVertexShader from './simulationVertexShader';
 import simulationFragmentShader from './simulationFragmentShader';
 import * as THREE from "three";
 
-import testVertex from "./testVertex";
-import testFragment from "./testFragment";
-
-
 const getRandomData = (width, height) => {
   // we need to create a vec4 since we're passing the positions to the fragment shader
   // data textures need to have 4 components, R, G, B, and A
@@ -40,21 +36,21 @@ class SimulationMaterial extends THREE.ShaderMaterial {
 
     positionsTexture.needsUpdate = true;
 
-    // const simulationUniforms = {
-    //   positions: { value: positionsTexture },
-    //   uFrequency: { value: 0.25 },
-    //   uTime: { value: 0 },
-    // };
-
     const simulationUniforms = {
       positions: { value: positionsTexture },
-      attractor: { value: 0 }
+      uFrequency: { value: 0.25 },
+      uTime: { value: 0 },
     };
+
+    // const simulationUniforms = {
+    //   positions: { value: positionsTexture },
+    //   attractor: { value: 0 }
+    // };
 
     super({
       uniforms: simulationUniforms,
-      vertexShader: testVertex,
-      fragmentShader: testFragment,
+      vertexShader: simulationVertexShader, // testVertex
+      fragmentShader: simulationFragmentShader, // testFragment
     });
   }
 }

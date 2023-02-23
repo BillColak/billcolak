@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 import Globe from "react-globe.gl";
 import * as d3 from "d3"
-import * as THREE from "three";
+// import * as THREE from "three";
 // import countries from '/custom.geo.json';
 import {useControls} from "leva";
 
@@ -23,20 +23,35 @@ function indexBy(list, iteratee, context) {
 const airportParse = ([airportId, name, city, country, iata, icao, lat, lng, alt, timezone, dst, tz, type, source]) => ({ airportId, name, city, country, iata, icao, lat, lng, alt, timezone, dst, tz, type, source });
 const routeParse = ([airline, airlineId, srcIata, srcAirportId, dstIata, dstAirportId, codeshare, stops, equipment]) => ({ airline, airlineId, srcIata, srcAirportId, dstIata, dstAirportId, codeshare, stops, equipment});
 
-const COUNTRY = 'Canada';
+// const COUNTRY = 'Canada';
 const OPACITY = 0.3;
+const countries = ['Canada', 'Mexico', 'Portugal', 'Turkey', 'Germany', 'Indonesia', 'Japan', 'Russia', 'Australia', 'Brazil'];
 
 
-export default function Earth(props) {
+export default function AirlineRoutes(props) {
     const globeEl = useRef();
     const [airports, setAirports] = useState([]);
     const [routes, setRoutes] = useState([]);
-    const [hoverArc, setHoverArc] = useState();
     const [popData, setPopData] = useState([]);
+    const [country, setCountry] = useState('Canada');
+    const [archColor, setArchColor] = useState('#6678FF');
 
-    const {color, atmosphere} = useControls('Color',{
-        color: {value: '#e614b4', label: 'color'},
-        atmosphere: {value: '#e614b4', label: 'atmosphere'},
+    const {atmosphere} = useControls('Domestic Airline Routes',{
+        atmosphere: {value: '#08c1ba', label: 'Atmosphere'},
+        arch: {
+            value: '#6678FF',
+            label: 'Arch Color',
+            onChange: (value) => {
+                setArchColor(value);
+            }
+        },
+        COUNTRY: {
+            value: 'Canada',
+            label: 'Country',
+            options: countries,
+            onChange: (value) => {
+                setCountry(value);}
+        }
     });
 
 
@@ -47,6 +62,7 @@ export default function Earth(props) {
             // .then(setPopData);
             .then(data => {setPopData(JSON.parse(data))});
 
+
         Promise.all([
             fetch('https://raw.githubusercontent.com/jpatokal/openflights/master/data/airports.dat').then(res => res.text())
                 .then(d => d3.csvParseRows(d, airportParse)),
@@ -54,7 +70,7 @@ export default function Earth(props) {
                 .then(d => d3.csvParseRows(d, routeParse))
         ]).then(([airports, routes]) => {
 
-            const filteredAirports = airports.filter(d => d.country === COUNTRY);
+            const filteredAirports = airports.filter(d => d.country === country);
             const byIata = indexBy(filteredAirports, 'iata', false);
 
             const filteredRoutes = routes
@@ -64,12 +80,12 @@ export default function Earth(props) {
                     srcAirport: byIata[d.srcIata],
                     dstAirport: byIata[d.dstIata]
                 }))
-                .filter(d => d.srcAirport.country === COUNTRY && d.dstAirport.country === COUNTRY); // domestic routes within country
+                .filter(d => d.srcAirport.country === country && d.dstAirport.country === country); // domestic routes within country
 
             setAirports(filteredAirports);
             setRoutes(filteredRoutes);
         });
-    }, []);
+    }, [country]);
 
 
     useEffect(() => {
@@ -86,28 +102,18 @@ export default function Earth(props) {
         <Globe
             ref={globeEl}
             atmosphereColor={atmosphere}
-            backgroundColor={'#181452'}
-            globeMaterial={
-                new THREE.MeshPhongMaterial({
-                    color: color,
-                    emissive: color,
-                    emissiveIntensity: 0.1,
-                    shininess: 0,
-                })
-            }
-
-            // globeImageUrl="/GlobeTextures/earth/world.jpg"
-            // bumpImageUrl="/GlobeTextures/earth/bump.jpg"
+            // backgroundColor={'#181452'}
+            // globeMaterial={
+            //     new THREE.MeshPhongMaterial({
+            //         color: GlobeBase,
+            //         emissive: GlobeBase,
+            //         emissiveIntensity: 0.1,
+            //         shininess: 0,
+            //     })
+            // }
+            globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+            bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
             // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-
-            // hexBinPointsData={popData}
-            // hexBinPointWeight="pop"
-            // hexAltitude={d => d.sumWeight * 6e-8}
-            // hexBinResolution={4}
-            // hexTopColor={d => weightColor(d.sumWeight)}
-            // hexSideColor={d => weightColor(d.sumWeight)}
-            // hexBinMerge={true}
-
 
             arcsData={routes}
             arcLabel={d => `${d.airline}: ${d.srcIata} &#8594; ${d.dstIata}`}
@@ -117,29 +123,22 @@ export default function Earth(props) {
             arcEndLng={d => +d.dstAirport.lng}
             arcDashLength={0.4}
             arcDashGap={0.2}
-            arcDashAnimateTime={1500}
+            arcDashAnimateTime={2000}
             arcsTransitionDuration={0}
-            arcColor={d => {
-                // const op = !hoverArc ? OPACITY : d === hoverArc ? 0.9 : OPACITY / 4;
-                return [`#e614b4`, `#27a9e3`];
-            }}
-            onArcHover={setHoverArc}
+            arcColor={d => {return [archColor, archColor];}}
+
 
             pointsData={airports}
             pointColor={() => 'orange'}
             pointAltitude={0}
-            pointRadius={0.1}
+            pointRadius={0.04}
             pointsMerge={true}
-
-
-
-
-            hexPolygonsData={popData.features}
-            hexPolygonColor={() => 'rgba(82,234,82,1)'}
-            hexPolygonResolution={3}
-            hexPolygonMargin={0.5}
-            enablePointerInteraction={false}
-            waitForGlobeReady={true}
+            // hexPolygonsData={popData.features}
+            // hexPolygonColor={() => 'rgba(82,234,82,1)'}
+            // hexPolygonResolution={3}
+            // hexPolygonMargin={0.5}
+            // enablePointerInteraction={false}
+            // waitForGlobeReady={true}
         />
     );
 }

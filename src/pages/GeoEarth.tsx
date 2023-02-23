@@ -1,25 +1,27 @@
 import {
-    Environment,
+    Environment, Html,
     OrbitControls,
     Plane,
     Stars,
     useGLTF
 } from "@react-three/drei";
 import {Canvas, useFrame, useLoader} from "@react-three/fiber";
-import {Suspense, useRef} from "react";
+import {Suspense, useRef, useState} from "react";
 import {Perf} from "r3f-perf";
 import Halo from "../components/ISS/models/Halo";
 import Lights from "../components/ISS/models/Lights";
 import World from "../components/ISS/models/World";
 import {TextureLoader, Vector3} from "three";
 import {useControls} from "leva";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
+import AirlineRoutes from "../components/ISS/AirlineRoutes";
 
-const hdri = {
-    omega: '/GlobeTextures/hdr/omega.hdr',
-    mayoris: '/GlobeTextures/hdr/alphamayoris.hdr',
-    earth: '/GlobeTextures/hdr/earth.hdr',
-    nebula: '/GlobeTextures/hdr/nebula.hdr',
-}
+
+
+
+
+
 const skybox = {
     box1: [
         '/GlobeTextures/skybox/space-posx.jpg', // right
@@ -29,68 +31,10 @@ const skybox = {
         '/GlobeTextures/skybox/space-posz.jpg', // front
         '/GlobeTextures/skybox/space-negz.jpg', // back
     ],
-    box2: [
-        '/GlobeTextures/skybox2/Left_4K_TEX.png',
-        '/GlobeTextures/skybox2/Right_4K_TEX.png',
-        '/GlobeTextures/skybox2/Up_4K_TEX.png',
-        '/GlobeTextures/skybox2/Down_4K_TEX.png',
-        '/GlobeTextures/skybox2/Front_4K_TEX.png',
-        '/GlobeTextures/skybox2/Back_4K_TEX.png',
-    ],
-    box3: [
-        '/GlobeTextures/skybox3/Left_4K_TEX.png',
-        '/GlobeTextures/skybox3/Right_4K_TEX.png',
-        '/GlobeTextures/skybox3/Up_4K_TEX.png',
-        '/GlobeTextures/skybox3/Down_4K_TEX.png',
-        '/GlobeTextures/skybox3/Front_4K_TEX.png',
-        '/GlobeTextures/skybox3/Back_4K_TEX.png',
-    ],
-    box4: [
-        '/GlobeTextures/skybox4/Left_4K_TEX.png',
-        '/GlobeTextures/skybox4/Right_4K_TEX.png',
-        '/GlobeTextures/skybox4/Up_4K_TEX.png',
-        '/GlobeTextures/skybox4/Down_4K_TEX.png',
-        '/GlobeTextures/skybox4/Front_4K_TEX.png',
-        '/GlobeTextures/skybox4/Back_4K_TEX.png',
-    ]
+
 }
 
-// function PlaneComponent(){
-//     const texture = useLoader(THREE.TextureLoader, '/images/cupolaISS.png')
-//     const scale = useAspect(texture.image.width, texture.image.height, 1)
-//
-//     return (
-//         <Plane scale={scale} >
-//             <meshPhongMaterial map={texture} />
-//         </Plane>
-//     )
-// }
-//
-// function Video() {
-//     const { position, rotation } = useControls({
-//         position:
-//             {
-//                 value: { x: 0.16,  y: 1.34 , z: 0.08 },
-//                 step: 0.01
-//             },
-//         rotation: {
-//             value: { x: 0,  y: 0 , z: 0 },
-//             step: 0.01
-//         }
-//     })
-//
-//     const [video] = useState(() => Object.assign(document.createElement('video'), { src: '/ISSTimelapse.mp4', crossOrigin: 'Anonymous', loop: true, muted: true }))
-//
-//     useEffect(() => void video.play(), [video])
-//     return (
-//         <mesh position={[position.x, position.y, position.z]} rotation={[rotation.x, rotation.y, rotation.z]} scale={[17, 10, 1]}>
-//             <planeGeometry />
-//             <meshBasicMaterial toneMapped={false}>
-//                 <videoTexture attach="map" args={[video]} encoding={THREE.sRGBEncoding} />
-//             </meshBasicMaterial>
-//         </mesh>
-//     )
-// }
+
 export function MakePlane(){
     // const { position, rotation } = useControls('PlanePosition',{
     //     position:
@@ -166,29 +110,26 @@ export function MakePlane(){
 }
 
 
-export default function Cupola() {
+
+
+
+
+
+export default function GeoEarth() {
 
     return (
         <>
-            <div className="w-full h-screen">
-                <Canvas camera={{position: [0, 1, 1.5]}}>
-                    <Perf position={'top-left'} />
-                    {/*<MakePlane />*/}
-                    <Suspense fallback={null}>
-                        <Environment background  files={skybox.box1} />
-
-                        {/*<Stars radius={400} depth={50} count={2000} factor={10} saturation={5} fade={true} />*/}
-                        {/*<color args={ ['#06081f']} attach={"background"} />*/}
-                        {/*<SkyBox />*/}
-
-
+            <div className="w-full h-screen bg-slate-900">
+                <Suspense fallback={<EDLoadingScreen/>}>
+                    <Canvas camera={{position: [0, 1, 1.5]}}>
+                        <Perf position={'bottom-left'} />
+                        {/*<Environment background  files={skybox.box1} />*/}
                         <World />
                         <Halo color={"#4756d3"} />
                         <Lights />
-
-                    </Suspense>
-                    <OrbitControls/>
-                </Canvas>
+                        <OrbitControls/>
+                    </Canvas>
+                </Suspense>
             </div>
         </>
     )

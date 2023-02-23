@@ -1,30 +1,22 @@
 import {Canvas, useFrame, useLoader} from '@react-three/fiber'
 import Box from '../components/ThreeComponents/Box';
 import Sphere from "../components/ThreeComponents/Sphere";
-import {Suspense, useRef} from "react";
+import {Suspense, useRef, useState} from "react";
 import * as THREE from "three";
-import {TransformControls, OrbitControls, Html} from '@react-three/drei'
-// import TestScene from "../components/testScene";
-import CustomBox from "../components/ThreeComponents/CustomBox";
-import StairWay from "../components/ThreeComponents/StairWay";
-import Column from "../components/ThreeComponents/Column";
-import Rails from "../components/ThreeComponents/Rails";
-import PyramidRails from "../components/ThreeComponents/PyramidRails";
-import ObeliskRails from "../components/ThreeComponents/ObeliskRails";
-import Ball from "../components/ThreeComponents/Ball";
+import { OrbitControls, Html} from '@react-three/drei'
 import {useControls} from "leva";
-import Arch from "../components/ThreeComponents/Arch";
-import Laptop from "../components/Laptop/Laptop";
-import {Phone} from "../components/iPhone/iPhone";
 import {TextureLoader} from "three";
-import GlowButton from "../components/GlowButton";
-import {FBOParticles} from "../components/StrangeAttractor/Attractor";
+import {FBOParticles} from "../components/Particles/FBOdemo/FBOParticles";
+// import { Glitch, EffectComposer } from '@react-three/postprocessing'
+
+import {EffectComposer, Glitch} from "@react-three/postprocessing";
+// import {GlitchMode, BlendFunction} from "postprocessing";
+
+import {Perf} from "r3f-perf";
+import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 
 
-
-// todo add debug panel instead of updating state
-// TODO https://codesandbox.io/s/zxpv7 HAVE TO ADD THIS!!!
-// TODO DESIGN SYSTEM WITH COLORS AND FONTS IN FIGMA
+// TODO https://codesandbox.io/s/zxpv7 HChristmas Baubles
 // https://codesandbox.io/s/mkq8e --> Map with hover highlight
 // https://codesandbox.io/s/bst0cy --> monitors, another way to display projects?
 // https://codesandbox.io/s/6hi1y --> domino & Rube Goldberg machine to ball cluster effect? https://codesandbox.io/s/zxpv7?file=/src/DirtyFigmaExport.js https://www.pinterest.ca/pin/152911349820845754/
@@ -37,6 +29,8 @@ import {FBOParticles} from "../components/StrangeAttractor/Attractor";
 // layer materials might come in handy https://codesandbox.io/s/nvup4
 // gatsby stars for Space Escher: https://codesandbox.io/s/2csbr1
 // https://codesandbox.io/s/yjhzv || https://codesandbox.io/s/gsm1y --> combine this with globe + https://codesandbox.io/s/n60qg
+// todo Spring library for realistic animations? https://react-spring.dev/ https://react-spring.dev/docs/advanced/config#configs even animate dom elements?
+// https://codesandbox.io/s/kud9p?file=/src/Model.js:883-933 -->  what is going on with nodes in Model.js?
 
 
 function Experience() {
@@ -149,44 +143,65 @@ function Experience() {
 
 export default function Home() {
 
+    const [project, setProject] = useState('FBO Particles')
+
+    // select Project
+    useControls({
+        Select_Demo: {
+            value: 'FBO Particles',
+            options: ['FBO Particles', 'Pulsing Particles', 'Earth', 'Experience'],
+            onChange: (value) => {
+                setProject(value)
+                console.log(value)
+            }
+        }
+    })
+
+
+
     return (
         <>
-            <div className="v-flex w-full h-[800px] font-spline text-4xl ">
+            <div className="h-screen">
+                <Suspense fallback={<EDLoadingScreen/>}>
+                    <Canvas
+                        dpr={[1, 2]}
+                        gl={{
+                            alpha: true,
+                            antialias: true,
+                            toneMapping: THREE.ACESFilmicToneMapping,
+                            outputEncoding: THREE.sRGBEncoding,
+                        }}
+                        camera={ {
+                            fov: 45,
+                            near: 0.1,
+                            far: 100,
+                            position: [ 3, 2, 2], // use the third index to bring the camera closer.
+                            zoom: 1
+                        } }
+                    >
+                        <EffectComposer>
+                            <Glitch
+                                // @ts-ignore
+                                delay={ [ 4, 8 ] }
+                                // @ts-ignore
+                                duration={ [ 0.3, 0.5 ] }
+                                // @ts-ignore
+                                strength={ [ 0.2, 0.4 ] }
 
-                {/*<Canvas shadows flat linear>*/}
-                {/*    <Suspense fallback={null}>*/}
-                {/*        <OrbitControls />*/}
-                {/*        <TestScene  />*/}
-                {/*    </Suspense>*/}
-                {/*</Canvas>*/}
+                            />
+                        </EffectComposer>
+                        <Perf position={'bottom-left'}/>
 
-                <Canvas //wtf does Canvas do?
-                    // all these are pretty much default values
-                    dpr={[1, 2]}
-                    gl={{
-                        alpha: true,
-                        antialias: true,
-                        toneMapping: THREE.ACESFilmicToneMapping,
-                        outputEncoding: THREE.sRGBEncoding,
-                    }}
-                    camera={ {
-                        fov: 45,
-                        near: 0.1,
-                        far: 100,
-                        position: [ 3, 2, 4], // use the third index to bring the camera closer.
-                        zoom: 1
-                    } }
-                >
-
-                    {/*<Experience />*/}
-                    <FBOParticles />
-                    <OrbitControls />
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 10, 10]} />
-                </Canvas>
+                        {/*{project === 'Experience' && <Experience />}*/}
+                        {/*{project === 'Pulsing Particles' && <PulsingParticles />}*/}
+                        {/*{project === 'FBO Particles' && <FBOParticles />}*/}
+                        <FBOParticles />
+                        <OrbitControls />
+                        <ambientLight intensity={1.5} />
+                        {/*<pointLight position={[10, 10, 10]} />*/}
+                    </Canvas>
+                </Suspense>
             </div>
         </>
     );
 }
-// todo Spring library for realistic animations? https://react-spring.dev/ https://react-spring.dev/docs/advanced/config#configs even animate dom elements?
-// https://codesandbox.io/s/kud9p?file=/src/Model.js:883-933 -->  what is going on with nodes in Model.js?

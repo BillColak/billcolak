@@ -7,6 +7,7 @@
     "@heroicons/react": "^2.0.13",
     "@react-three/drei": "^9.48.1",
     "@react-three/fiber": "^8.9.1",
+    "@react-three/postprocessing": "^2.7.0",
     "@splinetool/loader": "^0.9.168",
     "@splinetool/r3f-spline": "^1.0.2",
     "@splinetool/react-spline": "^2.2.5",

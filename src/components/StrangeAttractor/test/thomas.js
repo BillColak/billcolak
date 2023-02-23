@@ -12,9 +12,9 @@ import {extend} from "@react-three/fiber";
             });
             var r = e(7294),
                 o = e(9477),
-                a = e(3310);
+                useThree = e(3310);
             function i(t, n, e) {
-                const { gl: i, size: s, viewport: f } = (0, a.z)(),
+                const { gl: i, size: s, viewport: f } = (0, useThree.z)(),
                     l = "number" === typeof t ? t : s.width * f.dpr,
                     d = "number" === typeof n ? n : s.height * f.dpr,
                     c = ("number" === typeof t ? e : t) || {},
@@ -439,13 +439,13 @@ import {extend} from "@react-three/fiber";
                             stencilBuffer: !1,
                             type: THREE.FloatType,
                         }),
-                        m = renderTarget.clone();
+                        renderTargetClone = renderTarget.clone();
                     return (
                         (0, d.useEffect)(function () {
                             gl.setRenderTarget(renderTarget),
                                 gl.clear(),
                                 gl.render(scene, camera),
-                                gl.setRenderTarget(m),
+                                gl.setRenderTarget(renderTargetClone),
                                 gl.clear(),
                                 gl.render(scene, camera),
                                 gl.setRenderTarget(null);
@@ -453,15 +453,15 @@ import {extend} from "@react-three/fiber";
                             (0, extend.A)(function (t) {
                                 var gl1 = t.gl,
                                     r = renderTarget;
-                                (renderTarget = m),
-                                    (m = r),
+                                (renderTarget = renderTargetClone),
+                                    (renderTargetClone = r),
                                     (simulationMaterialRef.current.uniforms.attractor.value = type),
                                     (simulationMaterialRef.current.uniforms.positions.value = renderTarget.texture),
-                                    gl1.setRenderTarget(m),
+                                    gl1.setRenderTarget(renderTargetClone),
                                     gl1.clear(),
                                     gl1.render(scene, camera),
                                     gl1.setRenderTarget(null),
-                                    (point.current.uniforms.positions.value = m.texture);
+                                    (point.current.uniforms.positions.value = renderTargetClone.texture);
                             }),
                             (0, react.jsxs)(react.Fragment, {
                                 children: [

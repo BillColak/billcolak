@@ -1,6 +1,9 @@
 const fragmentShader = `
+
+uniform vec3 uColor;
+
 void main() {
-  vec3 color = vec3(0.67, 0.56, 0.86);
+  vec3 color = vec3(uColor);
   gl_FragColor = vec4(color, 1.0);
 }
 `

@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef} from "react";
+import {Suspense, useEffect, useMemo, useRef} from "react";
 import {Character, Sprite, GameObject, Boundary} from "./GameComponents/Sprites";
 import backgroundImage from "../assets/GameAssets/Pellet Town.png";
 import foregroundImage from "../assets/GameAssets/foregroundObjects.png";
@@ -225,7 +225,9 @@ export default function Game() {
 
 
     return (
+        <Suspense fallback={<div>Loading...</div>}>
             <canvas ref={canvasRef} />
+        </Suspense>
     );
 }
 
