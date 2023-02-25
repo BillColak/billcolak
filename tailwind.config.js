@@ -19,6 +19,7 @@ module.exports = {
         admin_bg: "#111317",
         admin_fg: "#1A1C22",
         onyx: "#0E0E2C",
+        bauble: "#ffd9d9",
         koble_primary: "#DD2222",
         koble_primaryHighlight: "#e43535",
         koble_secondary: "#181a1b",

@@ -1,4 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Quattrocento+Sans);
+@import url("https://rsms.me/inter/inter.css");
+@import url("https://fonts.googleapis.com/css2?family=Antonio:wght@600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -10,6 +12,7 @@
 
 html {
     overflow-y: auto;
+    font-family: "Inter", sans-serif;
 }
 
 .loading {

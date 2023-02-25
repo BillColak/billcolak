@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import * as d3 from "d3";
 import Globe from "react-globe.gl";
-import * as THREE from "three";
 
 function EarthQuakes(props) {
 
@@ -16,7 +15,7 @@ function EarthQuakes(props) {
 
         const weightColor = d3.scaleLinear()
             .domain([0, 30])
-            .range(['#abb5fc', '#330ae1'])
+            .range(['lightblue', 'darkred'])
             .clamp(true);
 
         return <Globe

@@ -35,16 +35,6 @@ import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 
 function Experience() {
 
-    // const controls = useControls({
-    //     radius : 1,
-    //     widthSegments : 32,
-    //     heightSegments : 16,
-    //     phiStart : 0,
-    //     phiLength : Math.PI,
-    //     thetaStart : 4.3,
-    //     thetaLength : 1/Math.PI,
-    //     wireframe : false
-    // });
     const texture = useLoader(TextureLoader, '/images/Scptr.png');
 
     const group = useRef<THREE.Group>(null!)
@@ -60,49 +50,6 @@ function Experience() {
 
     return (
         <>
-            {/*<Arch*/}
-            {/*    radius={controls.radius}*/}
-            {/*    widthSegments={controls.widthSegments}*/}
-            {/*    heightSegments={controls.heightSegments}*/}
-            {/*    phiStart={controls.phiStart}*/}
-            {/*    phiLength={controls.phiLength}*/}
-            {/*    thetaStart={controls.thetaStart}*/}
-            {/*    thetaLength={controls.thetaLength}*/}
-            {/*    color={'hotpink'}*/}
-            {/*    wireframe={controls.wireframe}*/}
-            {/*/>*/}
-            {/*<Ball*/}
-            {/*    position={[0,2,2]}*/}
-            {/*    rotation={[0,0,0]}*/}
-            {/*    colorTwo={"#523fea"}*/}
-            {/*    colorOne={"#aaff00"}*/}
-            {/*    key="Ball123"*/}
-            {/*/>*/}
-            {/*<PyramidRails*/}
-            {/*    key="PyramidRails"*/}
-            {/*    count={4}*/}
-            {/*    leftClosed={true}*/}
-            {/*    rightClosed={true}*/}
-            {/*    height={1}*/}
-            {/*    position={[-3, 0, 0]}*/}
-            {/*    color={'skyblue'}*/}
-            {/*/>*/}
-            {/*<ObeliskRails*/}
-            {/*    key="ObeliskRails123"*/}
-            {/*    leftClosed={true}*/}
-            {/*    rightClosed={true}*/}
-            {/*    count={4}*/}
-            {/*    height={1}*/}
-            {/*    position={[-3, 0, -2]}*/}
-            {/*    color={'#deaa89'}*/}
-            {/*/>*/}
-
-            {/*<StairWay*/}
-            {/*    // key="StairWay123"*/}
-            {/*    steps={7}*/}
-            {/*    position={[3, 1, 3]}*/}
-            {/*/>*/}
-
             <group ref={group}>
                 <Box position={[-1.2, 1, 0]} rotation-y={ Math.PI * 0.25 } />
                 <Sphere position={[1.2, 1, 0]} scale={1} />
@@ -143,19 +90,19 @@ function Experience() {
 
 export default function Home() {
 
-    const [project, setProject] = useState('FBO Particles')
+    // const [project, setProject] = useState('FBO Particles')
 
     // select Project
-    useControls({
-        Select_Demo: {
-            value: 'FBO Particles',
-            options: ['FBO Particles', 'Pulsing Particles', 'Earth', 'Experience'],
-            onChange: (value) => {
-                setProject(value)
-                console.log(value)
-            }
-        }
-    })
+    // useControls({
+    //     Select_Demo: {
+    //         value: 'FBO Particles',
+    //         options: ['FBO Particles', 'Pulsing Particles', 'Earth', 'Experience'],
+    //         onChange: (value) => {
+    //             setProject(value)
+    //             console.log(value)
+    //         }
+    //     }
+    // })
 
 
 
@@ -190,7 +137,7 @@ export default function Home() {
 
                             />
                         </EffectComposer>
-                        <Perf position={'bottom-left'}/>
+                        {/*<Perf position={'bottom-left'}/>*/}
 
                         {/*{project === 'Experience' && <Experience />}*/}
                         {/*{project === 'Pulsing Particles' && <PulsingParticles />}*/}

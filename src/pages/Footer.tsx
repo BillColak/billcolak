@@ -125,27 +125,3 @@ export default function Footer(){
         </footer>
     )
 };
-
-            {/*<nav className="flex flex-row font-sans text-lg text-white">*/}
-            {/*    <NavLink to="/">home</NavLink>*/}
-            {/*</nav>*/}
-            {/*<div className="footer_bottom flex flex-row justify-between items-center">*/}
-            {/*    <div className="rights_container flex flex-col items-left">*/}
-            {/*        <img className="h-10 px-1" src={favicon} alt="logo" />*/}
-            {/*        <p>Designed & Developed by <a href="https://www.linkedin.com/in/bill-colak/" target="_blank" rel="noreferrer" className={'text-blue-600 underline italic'}>Bill Colak</a></p>*/}
-            {/*        <p>© 2022. All rights reserved.</p>*/}
-            {/*    </div>*/}
-
-            {/*projects*/}
-            {/*    <div className="projects_container flex flex-col items-right">*/}
-            {/*        <h3 className="text-2xl font-bold">Projects</h3>*/}
-            {/*        <ul className="list-none">*/}
-            {/*            <li><NavLink to="/fbo-particles">FBO Particles</NavLink></li>*/}
-            {/*            <li><NavLink to="/earth">Earth</NavLink></li>*/}
-            {/*            <li><NavLink to="/experience">Experience</NavLink></li>*/}
-            {/*        </ul>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
-// https://mambaui.com/components/footer
-// https://www.hyperui.dev/components/marketing/footers#component-3
