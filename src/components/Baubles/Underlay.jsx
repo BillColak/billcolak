@@ -36,7 +36,7 @@ export function Underlay() {
                 <p style={{ flex: "1 1 0%", height: "100%", fontSize: 16, lineHeight: "1.5em", color: "white", fontFamily: "'Inter', sans" }}>
                     <b>Bill Colak</b>
                     <br />
-                    UX Designer, Creative Developer
+                    Designer & Developer
                     <br />
                     <b>—</b>
                 </p>

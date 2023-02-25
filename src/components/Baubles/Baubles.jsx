@@ -6,7 +6,7 @@ import {EffectComposer, SSAO} from "@react-three/postprocessing"
 import {BallCollider, CylinderCollider, Physics, RigidBody} from "@react-three/rapier"
 
 THREE.ColorManagement.legacyMode = false
-const baubleMaterial = new THREE.MeshLambertMaterial({ color: "#c0a0a0", emissive: "red" })
+const baubleMaterial = new THREE.MeshLambertMaterial({ color: "#6678FF", emissive: "blue" })
 const capMaterial = new THREE.MeshStandardMaterial({ metalness: 0.75, roughness: 0.15, color: "#8a492f", emissive: "#600000", envMapIntensity: 20 })
 const sphereGeometry = new THREE.SphereGeometry(1, 28, 28)
 const baubles = [...Array(50)].map(() => ({ scale: [0.75, 0.75, 1, 1, 1.25][Math.floor(Math.random() * 5)] }))
@@ -55,7 +55,7 @@ export const Baubles = () => (
         <ambientLight intensity={1} />
         <spotLight position={[20, 20, 25]} penumbra={1} angle={0.2} color="white" castShadow shadow-mapSize={[512, 512]} />
         <directionalLight position={[0, 5, -4]} intensity={4} />
-        <directionalLight position={[0, -15, -0]} intensity={4} color="red" />
+        <directionalLight position={[0, -15, -0]} intensity={4} color="purple" />
         <Physics gravity={[0, 0, 0]}>
             <Pointer />
             {baubles.map((props, i) => <Bauble key={i} {...props} />) /* prettier-ignore */}

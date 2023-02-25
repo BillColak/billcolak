@@ -12,6 +12,7 @@ import Test from "./pages/Test";
 // import DesignProjects from "./pages/DesignProjects";
 import Projects from "./pages/Projects";
 import EDLoadingScreen from "./components/LoadingScreen/EDLoadingScreen";
+import Page404 from "./pages/Page404";
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
                         <Route path="/Projects" element={<Projects/>}/>
                         {/*<Route path="/Collections" element={<Collections />} />*/}
                         {/*<Route path="/Design" element={<DesignProjects />} />*/}
+                        <Route path="*" element={<Page404 />} />
+
                     </Route>
                     {/*<Route path="/" element={<DefaultLayout />}>*/}
                     {/*    <Route path="/Contact" element={<Contact />} />*/}

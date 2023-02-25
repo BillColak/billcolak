@@ -9,11 +9,7 @@ export default function DesignProjects() {
 
     return (
         <div className={'h-screen'}>
-            <Underlay />
-            <Suspense fallback={<EDLoadingScreen/>}>
-                <Baubles />
-            </Suspense>
-            <Overlay />
+
         </div>
     );
 }
