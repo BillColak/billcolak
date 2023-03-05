@@ -2,8 +2,7 @@ import React from 'react';
 
 function EdLoadingScreen() {
     return (
-        <main>
-
+        <main className={'overflow-x-hidden'}>
                 <div className="dank-ass-loader">
                     <div className="row">
                         <div className="arrow up outer outer-18"></div>

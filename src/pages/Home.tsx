@@ -1,10 +1,10 @@
-import {Canvas, useFrame, useLoader} from '@react-three/fiber'
+import {Canvas, useLoader} from '@react-three/fiber'
 import Box from '../components/ThreeComponents/Box';
 import Sphere from "../components/ThreeComponents/Sphere";
-import {Suspense, useRef, useState} from "react";
+import {Suspense, useRef,} from "react";
 import * as THREE from "three";
 import { OrbitControls, Html} from '@react-three/drei'
-import {useControls} from "leva";
+// import {useControls} from "leva";
 import {TextureLoader} from "three";
 import {FBOParticles} from "../components/Particles/FBOdemo/FBOParticles";
 // import { Glitch, EffectComposer } from '@react-three/postprocessing'
@@ -12,8 +12,8 @@ import {FBOParticles} from "../components/Particles/FBOdemo/FBOParticles";
 import {EffectComposer, Glitch} from "@react-three/postprocessing";
 // import {GlitchMode, BlendFunction} from "postprocessing";
 
-import {Perf} from "r3f-perf";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
+import ErrorBoundary from "../components/errorBoundary";
 
 
 // TODO https://codesandbox.io/s/zxpv7 HChristmas Baubles
@@ -109,6 +109,7 @@ export default function Home() {
     return (
         <>
             <div className="h-screen">
+                <ErrorBoundary>
                 <Suspense fallback={<EDLoadingScreen/>}>
                     <Canvas
                         dpr={[1, 2]}
@@ -148,6 +149,7 @@ export default function Home() {
                         {/*<pointLight position={[10, 10, 10]} />*/}
                     </Canvas>
                 </Suspense>
+                </ErrorBoundary>
             </div>
         </>
     );

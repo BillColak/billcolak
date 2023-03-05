@@ -1,5 +1,5 @@
 import React, {Suspense} from 'react';
-import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
+import {HashRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 // import Contact from "./pages/Contact";
 // import DefaultLayout from "./pages/layouts/DefaultLayout";
@@ -14,7 +14,7 @@ import Projects from "./pages/Projects";
 import EDLoadingScreen from "./components/LoadingScreen/EDLoadingScreen";
 import Page404 from "./pages/Page404";
 
-
+// todo https://reactjs.org/docs/code-splitting.html
 function App() {
     return (
         <HashRouter>
@@ -28,7 +28,6 @@ function App() {
                         {/*<Route path="/Collections" element={<Collections />} />*/}
                         {/*<Route path="/Design" element={<DesignProjects />} />*/}
                         <Route path="*" element={<Page404 />} />
-
                     </Route>
                     {/*<Route path="/" element={<DefaultLayout />}>*/}
                     {/*    <Route path="/Contact" element={<Contact />} />*/}

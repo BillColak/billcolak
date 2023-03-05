@@ -14,6 +14,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary_background: "#0a1329",
         subtle: "#828299",
         admin: "#1E1E1E",
         admin_bg: "#111317",
@@ -63,7 +64,7 @@ module.exports = {
       addBase({
         body: {
           color: theme('colors.white'),
-          backgroundColor: theme('colors.slate.900'),
+          backgroundColor: '#0a1329',
         },
       })
       addComponents({

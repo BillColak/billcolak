@@ -1,9 +1,10 @@
-import {useEffect, useRef, useState} from "react";
+import {Suspense, useEffect, useRef, useState} from "react";
 import Globe from "react-globe.gl";
 import * as d3 from "d3"
 // import * as THREE from "three";
 // import countries from '/custom.geo.json';
 import {useControls} from "leva";
+import EdLoadingScreen from "../LoadingScreen/EDLoadingScreen";
 
 
 
@@ -99,46 +100,49 @@ export default function AirlineRoutes(props) {
 
 
     return (
-        <Globe
-            ref={globeEl}
-            atmosphereColor={atmosphere}
-            // backgroundColor={'#181452'}
-            // globeMaterial={
-            //     new THREE.MeshPhongMaterial({
-            //         color: GlobeBase,
-            //         emissive: GlobeBase,
-            //         emissiveIntensity: 0.1,
-            //         shininess: 0,
-            //     })
-            // }
-            globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-            bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-            // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+        <Suspense fallback={<EdLoadingScreen/>}>
+            <Globe
+                ref={globeEl}
+                atmosphereColor={atmosphere}
+                // backgroundColor={'#181452'}
+                // globeMaterial={
+                //     new THREE.MeshPhongMaterial({
+                //         color: GlobeBase,
+                //         emissive: GlobeBase,
+                //         emissiveIntensity: 0.1,
+                //         shininess: 0,
+                //     })
+                // }
+                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+                // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+                backgroundColor={"#0a1329"}
 
-            arcsData={routes}
-            arcLabel={d => `${d.airline}: ${d.srcIata} &#8594; ${d.dstIata}`}
-            arcStartLat={d => +d.srcAirport.lat}
-            arcStartLng={d => +d.srcAirport.lng}
-            arcEndLat={d => +d.dstAirport.lat}
-            arcEndLng={d => +d.dstAirport.lng}
-            arcDashLength={0.4}
-            arcDashGap={0.2}
-            arcDashAnimateTime={2000}
-            arcsTransitionDuration={0}
-            arcColor={d => {return [archColor, archColor];}}
+                arcsData={routes}
+                arcLabel={d => `${d.airline}: ${d.srcIata} &#8594; ${d.dstIata}`}
+                arcStartLat={d => +d.srcAirport.lat}
+                arcStartLng={d => +d.srcAirport.lng}
+                arcEndLat={d => +d.dstAirport.lat}
+                arcEndLng={d => +d.dstAirport.lng}
+                arcDashLength={0.4}
+                arcDashGap={0.2}
+                arcDashAnimateTime={2000}
+                arcsTransitionDuration={0}
+                arcColor={d => {return [archColor, archColor];}}
 
 
-            pointsData={airports}
-            pointColor={() => 'orange'}
-            pointAltitude={0}
-            pointRadius={0.04}
-            pointsMerge={true}
-            // hexPolygonsData={popData.features}
-            // hexPolygonColor={() => 'rgba(82,234,82,1)'}
-            // hexPolygonResolution={3}
-            // hexPolygonMargin={0.5}
-            // enablePointerInteraction={false}
-            // waitForGlobeReady={true}
-        />
+                pointsData={airports}
+                pointColor={() => 'orange'}
+                pointAltitude={0}
+                pointRadius={0.04}
+                pointsMerge={true}
+                // hexPolygonsData={popData.features}
+                // hexPolygonColor={() => 'rgba(82,234,82,1)'}
+                // hexPolygonResolution={3}
+                // hexPolygonMargin={0.5}
+                // enablePointerInteraction={false}
+                // waitForGlobeReady={true}
+            />
+        </Suspense>
     );
 }

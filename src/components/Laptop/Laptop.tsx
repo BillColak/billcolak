@@ -19,7 +19,7 @@ export default function Laptop() {
     return (
 
         <>
-            <color args={ ['#695b5b']} attach={"background"} />
+            {/*<color args={ ['#695b5b']} attach={"background"} />*/}
 
             <PresentationControls
                 global
@@ -55,13 +55,13 @@ export default function Laptop() {
                         <iframe src="https://billcolak.com/" />
                         </Html>
                     </primitive>
-                    <Text
-                        fontSize={ 1 }
-                        position={ [2.5, 0.75, 0.75]}
-                        rotation-y={ -1 }
-                        maxWidth={ 2 }
-                        textAlign={ 'center' }
-                    >Bill Colak</Text>
+                    {/*<Text*/}
+                    {/*    fontSize={ 1 }*/}
+                    {/*    position={ [2.5, 0.75, 0.75]}*/}
+                    {/*    rotation-y={ -1 }*/}
+                    {/*    maxWidth={ 2 }*/}
+                    {/*    textAlign={ 'center' }*/}
+                    {/*>Bill Colak</Text>*/}
                 </Float>
             </PresentationControls>
 

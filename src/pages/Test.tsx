@@ -12,29 +12,38 @@ import Footer from "./Footer";
 import {Overlay, Underlay} from "../components/Baubles/Underlay";
 import {Baubles} from "../components/Baubles/Baubles";
 import Laptop from "../components/Laptop/Laptop";
+import ErrorBoundary from "../components/errorBoundary";
 
 export default function Test() {
 
     return (
-
+        <ErrorBoundary  >
     <Suspense fallback={<EDLoadingScreen/>}>
-        <div className={'h-screen'}>
+        <div className={'h-screen overflow-x-hidden'}>
             <Underlay />
                 <Baubles />
             <Overlay />
         </div>
         <section className="dark:text-gray-100">
             <div className="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 xl:max-w-3xl">
-                <h1 className="text-4xl font-bold leading-none sm:text-5xl">Quisquam necessita vel
-                    <span className="dark:text-indigo-500">laborum doloribus</span>delectus
+                <h1 className="text-4xl font-bold leading-none sm:text-5xl"> Website Is
+                    <span className="dark:text-indigo-500"> Under </span>Development
                 </h1>
-                <p className="px-8 mt-8 mb-12 text-lg">Cupiditate minima voluptate temporibus quia? Architecto beatae esse ab amet vero eaque explicabo!</p>
+                <p className="px-8 mt-8 mb-12 text-lg">Thank you for your patience</p>
                 <div className="flex flex-wrap justify-center">
                     <button className="px-8 py-3 m-2 text-lg font-semibold rounded dark:bg-indigo-500 dark:text-gray-900">Get started</button>
                     <button className="px-8 py-3 m-2 text-lg border rounded dark:text-gray-50 dark:border-gray-700">Learn more</button>
                 </div>
             </div>
         </section>
+        <div className={'h-[800px]'}>
+            <Suspense fallback={<EDLoadingScreen/>}>
+                <Canvas camera={{position: [0, 0, 4], }}>
+                    <Phone />
+                    <ambientLight intensity={1.5} />
+                </Canvas>
+            </Suspense>
+        </div>
         <section>
             <div
                 className="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:py-16 lg:px-8"
@@ -45,13 +54,13 @@ export default function Test() {
                     >
                         <img
                             alt="Party"
-                            src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                            src="/scroll/images/img4.png"
                             className="absolute inset-0 h-full w-full object-cover"
                         />
                     </div>
 
                     <div className="lg:py-24">
-                        <h2 className="text-3xl font-bold sm:text-4xl">Grow your audience</h2>
+                        <h2 className="text-3xl font-bold sm:text-4xl dark:text-indigo-500">Buy My Merch</h2>
 
                         <p className="mt-4 text-gray-400">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic
@@ -72,7 +81,7 @@ export default function Test() {
         <div className={'h-[800px]'}>
             <Suspense fallback={<EDLoadingScreen/>}>
                 <Canvas camera={{position: [0, 0, 4], }}>
-                    <Phone />
+                    <Laptop />
                     <ambientLight intensity={1.5} />
                 </Canvas>
             </Suspense>
@@ -84,7 +93,7 @@ export default function Test() {
                         <div className="relative h-64 sm:h-80 lg:h-full">
                             <img
                                 alt="House"
-                                src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                                src="/scroll/images/img3.png"
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
                         </div>
@@ -119,16 +128,9 @@ export default function Test() {
                 </div>
             </div>
         </section>
-        <div className={'h-[800px]'}>
-            <Suspense fallback={<EDLoadingScreen/>}>
-                <Canvas camera={{position: [0, 0, 4], }}>
-                    <Laptop />
-                    <ambientLight intensity={1.5} />
-                </Canvas>
-            </Suspense>
-        </div>
+
         <Footer />
     </Suspense>
-
+        </ErrorBoundary>
     );
 }

@@ -1,6 +1,7 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {Suspense, useEffect, useMemo, useState} from 'react';
 import * as d3 from "d3"
 import Globe from "react-globe.gl";
+import EdLoadingScreen from "../LoadingScreen/EDLoadingScreen";
 
 function Gdp(props) {
     const [countries, setCountries] = useState({ features: []});
@@ -22,23 +23,27 @@ function Gdp(props) {
     );
     colorScale.domain([0, maxVal]);
 
-    return <Globe
-        globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-        // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
-        lineHoverPrecision={0}
-        polygonsData={countries.features.filter(d => d.properties.ISO_A2 !== 'AQ')}
-        polygonAltitude={d => d === hoverD ? 0.12 : 0.06}
-        polygonCapColor={d => d === hoverD ? 'steelblue' : colorScale(getVal(d))}
-        polygonSideColor={() => 'rgb(8,193,186, 0.35)'}
-        polygonStrokeColor={() => '#111'}
-        polygonLabel={({ properties: d }) => `
-        <b>${d.ADMIN} (${d.ISO_A2}):</b> <br />
-        GDP: <i>${d.GDP_MD_EST}</i> M$<br/>
-        Population: <i>${d.POP_EST}</i>
-      `}
-        onPolygonHover={setHoverD}
-        polygonsTransitionDuration={300}
-    />;
+    return (
+        <Suspense fallback={<EdLoadingScreen/>}>
+        <Globe
+            globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+            // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
+            backgroundColor={"#0a1329"}
+            lineHoverPrecision={0}
+            polygonsData={countries.features.filter(d => d.properties.ISO_A2 !== 'AQ')}
+            polygonAltitude={d => d === hoverD ? 0.12 : 0.06}
+            polygonCapColor={d => d === hoverD ? 'steelblue' : colorScale(getVal(d))}
+            polygonSideColor={() => 'rgb(8,193,186, 0.35)'}
+            polygonStrokeColor={() => '#111'}
+            polygonLabel={({ properties: d }) => `
+            <b>${d.ADMIN} (${d.ISO_A2}):</b> <br />
+            GDP: <i>${d.GDP_MD_EST}</i> M$<br/>
+            Population: <i>${d.POP_EST}</i>
+          `}
+            onPolygonHover={setHoverD}
+            polygonsTransitionDuration={300}
+        />
+    </Suspense>)
 }
 
 export default Gdp;
