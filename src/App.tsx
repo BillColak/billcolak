@@ -1,18 +1,15 @@
 import React, {Suspense} from 'react';
 import {HashRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
-// import Contact from "./pages/Contact";
-// import DefaultLayout from "./pages/layouts/DefaultLayout";
 import FootlessLayout from "./pages/layouts/FootlessLayout";
-// import Resume from "./pages/Resume";
-// import Game from "./Game/Game";
 import GeoEarth from "./pages/GeoEarth";
 import Test from "./pages/Test";
-// import Collections from "./pages/Collections";
-// import DesignProjects from "./pages/DesignProjects";
 import Projects from "./pages/Projects";
 import EDLoadingScreen from "./components/LoadingScreen/EDLoadingScreen";
 import Page404 from "./pages/Page404";
+import DevPortfolio from "./pages/DevPortfolio";
+// import RefreshApp from "./pages/RefreshApp";
+// import RefreshModeration from "./pages/RefreshModeration";
 
 // todo https://reactjs.org/docs/code-splitting.html
 function App() {
@@ -24,16 +21,12 @@ function App() {
                         <Route index element={<Home/>}/>
                         <Route path="/GeoEarth" element={<GeoEarth/>}/>
                         <Route path="/Test" element={<Test/>}/>
-                        <Route path="/Projects" element={<Projects/>}/>
-                        {/*<Route path="/Collections" element={<Collections />} />*/}
-                        {/*<Route path="/Design" element={<DesignProjects />} />*/}
+                        <Route path="/Gallery" element={<Projects/>}/>
+                        <Route path="/Porfolio" element={<DevPortfolio/>}/>
+                        {/*<Route path="/RefreshApp" element={<RefreshApp/>}/>*/}
+                        {/*<Route path="/RefreshModeration" element={<RefreshModeration/>}/>*/}
                         <Route path="*" element={<Page404 />} />
                     </Route>
-                    {/*<Route path="/" element={<DefaultLayout />}>*/}
-                    {/*    <Route path="/Contact" element={<Contact />} />*/}
-                    {/*    <Route path="/Resume" element={<Resume />} />*/}
-                    {/*    <Route path="/Game" element={<Game />} />*/}
-                    {/*</Route>*/}
                 </Routes>
             </Suspense>
         </HashRouter>

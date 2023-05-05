@@ -19,7 +19,6 @@ import AirlineRoutes from "../components/ISS/AirlineRoutes";
 import Population from "../components/ISS/Population";
 import Gdp from "../components/ISS/GDP";
 import EarthQuakes from "../components/ISS/EarthQuakes";
-
 import World from "../components/ISS/models/World";
 import Lights from "../components/ISS/models/Lights";
 import Halo from "../components/ISS/models/Halo";
