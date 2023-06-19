@@ -6,6 +6,10 @@
       <excludeFolder url="file://$MODULE_DIR$/.tmp" />
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
+      <excludeFolder url="file://$MODULE_DIR$/public/GlobeTextures/earth" />
+      <excludeFolder url="file://$MODULE_DIR$/public/GlobeTextures/skybox" />
+      <excludeFolder url="file://$MODULE_DIR$/src/Game" />
+      <excludeFolder url="file://$MODULE_DIR$/src/assets/GameAssets" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1,11 +1,11 @@
 import {   useFBO } from "@react-three/drei";
 import { useFrame, extend, createPortal } from "@react-three/fiber";
-import { useMemo, useRef, useState} from "react";
+import { useMemo, useRef } from "react";
 import * as THREE from "three";
 import SimulationMaterial from './SimulationMaterial';
 import vertexShader from './vertexShader';
 import fragmentShader from './fragmentShader';
-import {useControls} from "leva";
+// import {useControls} from "leva";
 
 extend({ SimulationMaterial: SimulationMaterial });
 
@@ -14,19 +14,6 @@ export const FBOParticles = () => {
 
   const points = useRef();
   const simulationMaterialRef = useRef();
-
-  // const [Attractor, setAttractor] = useState("Lorenz");
-  // const l = ["Lorenz", "LorenzMod2", "Thomas", "Dequan", "Dradas", "Arneodo", "Aizawa"]
-  //
-  //  useControls(  {
-  //   attractor: {
-  //       value: 'Lorenz',
-  //       options: l,
-  //       onChange: (value) => {
-  //         setAttractor(l.indexOf(value).toString())
-  //       },
-  //   }
-  // })
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1);
@@ -56,25 +43,13 @@ export const FBOParticles = () => {
   }, [size]);
 
 
-
   const uniforms = useMemo(() => ({
     uPositions: { value: null },
     uColor: { value: new THREE.Color('#6678ff') },
-    // positions: {value: null,},
-    // pointSize: { value: 3 }
   }), []);
 
 
   useFrame((state) => {
-    // const { gl, clock } = state;
-    // simulationMaterialRef.current.uniforms.attractor.value = Attractor;
-    // simulationMaterialRef.current.uniforms.positions.value = renderTarget.texture;
-    // gl.setRenderTarget(renderTarget);
-    // gl.clear();
-    // gl.render(scene, camera);
-    // gl.setRenderTarget(null);
-    // points.current.material.uniforms.positions.value = renderTarget.texture;
-
     const { gl, clock } = state;
     gl.setRenderTarget(renderTarget);
     gl.clear();

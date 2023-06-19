@@ -1,4 +1,4 @@
-import {Sprite} from "./GameComponents/Sprites";
+import {Sprite} from "./Sprites";
 import PTown from "../assets/GameAssets/Pellet Town.png";
 
 

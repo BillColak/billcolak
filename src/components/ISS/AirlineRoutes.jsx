@@ -100,7 +100,6 @@ export default function AirlineRoutes(props) {
 
 
     return (
-        <Suspense fallback={<EdLoadingScreen/>}>
             <Globe
                 ref={globeEl}
                 atmosphereColor={atmosphere}
@@ -136,13 +135,6 @@ export default function AirlineRoutes(props) {
                 pointAltitude={0}
                 pointRadius={0.04}
                 pointsMerge={true}
-                // hexPolygonsData={popData.features}
-                // hexPolygonColor={() => 'rgba(82,234,82,1)'}
-                // hexPolygonResolution={3}
-                // hexPolygonMargin={0.5}
-                // enablePointerInteraction={false}
-                // waitForGlobeReady={true}
             />
-        </Suspense>
     );
 }

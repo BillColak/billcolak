@@ -1,35 +1,35 @@
 import React, {Suspense} from 'react';
-import {HashRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Home from "./pages/Home";
 import FootlessLayout from "./pages/layouts/FootlessLayout";
-import GeoEarth from "./pages/GeoEarth";
-import Test from "./pages/Test";
-import Projects from "./pages/Projects";
 import EDLoadingScreen from "./components/LoadingScreen/EDLoadingScreen";
 import Page404 from "./pages/Page404";
-import DevPortfolio from "./pages/DevPortfolio";
-// import RefreshApp from "./pages/RefreshApp";
-// import RefreshModeration from "./pages/RefreshModeration";
+import {GlobalProvider} from "./Utils/Provider";
 
-// todo https://reactjs.org/docs/code-splitting.html
+const ProjectsPage = React.lazy(() => import('./pages/Projects'));
+const DesignPage = React.lazy(() => import('./pages/DesignPage'));
+const DevPortfolio = React.lazy(() => import('./pages/DevPortfolio'));
+const GeoEarth = React.lazy(() => import('./pages/GeoEarth'));
+
+
 function App() {
     return (
-        <HashRouter>
+        <BrowserRouter>
+            <GlobalProvider>
             <Suspense fallback={<EDLoadingScreen/>}>
                 <Routes>
                     <Route path="/" element={<FootlessLayout/>}>
                         <Route index element={<Home/>}/>
                         <Route path="/GeoEarth" element={<GeoEarth/>}/>
-                        <Route path="/Test" element={<Test/>}/>
-                        <Route path="/Gallery" element={<Projects/>}/>
+                        <Route path="/Design" element={<DesignPage/>}/>
+                        <Route path="/Gallery" element={<ProjectsPage/>}/>
                         <Route path="/Porfolio" element={<DevPortfolio/>}/>
-                        {/*<Route path="/RefreshApp" element={<RefreshApp/>}/>*/}
-                        {/*<Route path="/RefreshModeration" element={<RefreshModeration/>}/>*/}
                         <Route path="*" element={<Page404 />} />
                     </Route>
                 </Routes>
             </Suspense>
-        </HashRouter>
+            </GlobalProvider>
+        </BrowserRouter>
     );
 }
 

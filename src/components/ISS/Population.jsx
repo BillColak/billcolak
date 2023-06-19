@@ -24,7 +24,6 @@ function Population(props) {
         .domain([0, 1e7]);
 
     return(
-        <Suspense fallback={<EdLoadingScreen/>}>
             <Globe
                 ref={globeEl}
                 globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
@@ -41,7 +40,7 @@ function Population(props) {
                 hexBinMerge={true}
                 enablePointerInteraction={false}
             />
-        </Suspense>)
+        )
 }
 
 export default Population;

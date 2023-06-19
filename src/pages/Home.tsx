@@ -1,19 +1,16 @@
 import {Canvas, useLoader} from '@react-three/fiber'
-import Box from '../components/ThreeComponents/Box';
-import Sphere from "../components/ThreeComponents/Sphere";
-import {Suspense, useRef,} from "react";
-import * as THREE from "three";
-import { OrbitControls, Html} from '@react-three/drei'
-// import {useControls} from "leva";
-import {TextureLoader} from "three";
-import {FBOParticles} from "../components/Particles/FBOdemo/FBOParticles";
-// import { Glitch, EffectComposer } from '@react-three/postprocessing'
-
-import {EffectComposer, Glitch} from "@react-three/postprocessing";
-// import {GlitchMode, BlendFunction} from "postprocessing";
-
+// import Box from '../components/ThreeComponents/Box';
+// import Sphere from "../components/ThreeComponents/Sphere";
+import React, {Suspense} from "react";
+// import * as THREE from "three";
+import { OrbitControls} from '@react-three/drei'
+// import {TextureLoader} from "three";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 import ErrorBoundary from "../components/errorBoundary";
+import {AttractorParticles} from "../components/StrangeAttractor/test/TestAttractor";
+
+// const Box = React.lazy(() => import('../components/ThreeComponents/Box'));
+// const Sphere = React.lazy(() => import('../components/ThreeComponents/Sphere'));
 
 
 // TODO https://codesandbox.io/s/zxpv7 HChristmas Baubles
@@ -33,120 +30,21 @@ import ErrorBoundary from "../components/errorBoundary";
 // https://codesandbox.io/s/kud9p?file=/src/Model.js:883-933 -->  what is going on with nodes in Model.js?
 
 
-function Experience() {
-
-    const texture = useLoader(TextureLoader, '/images/Scptr.png');
-
-    const group = useRef<THREE.Group>(null!)
-
-    // useFrame((state, delta) => {
-    //     group.current.rotation.y += delta
-    //     // const angle = state.clock.elapsedTime
-    //     // state.camera.position.x = Math.sin(angle) * 10
-    //     // state.camera.position.z = Math.cos(angle) * 10
-    //     // state.camera.lookAt(0, 0, 0)
-    // })
-    // const sphere = useRef(null!)
-
-    return (
-        <>
-            <group ref={group}>
-                <Box position={[-1.2, 1, 0]} rotation-y={ Math.PI * 0.25 } />
-                <Sphere position={[1.2, 1, 0]} scale={1} />
-                <Html
-                    position={ [ 1, 1, 0 ] }
-                    wrapperClass="label"
-                    className="btn-red py-5  w-[180px]"
-                    // center={ true }
-                    distanceFactor={ 0.01 }
-                >
-                    That's a sphere 👍
-                    <img src="/images/Scptr.png" alt="Scptr" className="object-contain"/>
-                </Html>
-            </group>
-            {/*<TransformControls object={sphere} mode="translate" />*/}
-            {/*<CustomBox*/}
-            {/*    position={[0, 2, 0]}*/}
-            {/*    rotation={[0, 0, 0]}*/}
-            {/*    scale={1}*/}
-
-            {/*/>*/}
-
-            {/*<Laptop/>*/}
-            {/*<Phone/>*/}
-
-            {/*<Html distanceFactor={1} className={'max-h-[250px]'}>*/}
-            {/*    <img src="/images/Scptr.png" alt="Scptr" className="object-contain"/>*/}
-            {/*</Html>*/}
-
-            <mesh position-y={ 0 } rotation-x={ - Math.PI * 0.5 } scale={ 20 }>
-                <planeGeometry  />
-                <meshStandardMaterial color={'greenyellow'} />
-            </mesh>
-        </>
-    )
-}
-
 
 export default function Home() {
-
-    // const [project, setProject] = useState('FBO Particles')
-
-    // select Project
-    // useControls({
-    //     Select_Demo: {
-    //         value: 'FBO Particles',
-    //         options: ['FBO Particles', 'Pulsing Particles', 'Earth', 'Experience'],
-    //         onChange: (value) => {
-    //             setProject(value)
-    //             console.log(value)
-    //         }
-    //     }
-    // })
-
-
-
     return (
         <>
             <div className="h-screen">
                 <ErrorBoundary>
                 <Suspense fallback={<EDLoadingScreen/>}>
                     <Canvas
-                        dpr={[1, 2]}
-                        gl={{
-                            alpha: true,
-                            antialias: true,
-                            toneMapping: THREE.ACESFilmicToneMapping,
-                            outputEncoding: THREE.sRGBEncoding,
-                        }}
                         camera={ {
-                            fov: 45,
-                            near: 0.1,
-                            far: 100,
-                            position: [ 3, 2, 2], // use the third index to bring the camera closer.
-                            zoom: 1
-                        } }
-                    >
-                        <EffectComposer>
-                            <Glitch
-                                // @ts-ignore
-                                delay={ [ 4, 8 ] }
-                                // @ts-ignore
-                                duration={ [ 0.3, 0.5 ] }
-                                // @ts-ignore
-                                strength={ [ 0.2, 0.4 ] }
-
-                            />
-                        </EffectComposer>
-                        {/*<Perf position={'bottom-left'}/>*/}
-
-                        {/*{project === 'Experience' && <Experience />}*/}
-                        {/*{project === 'Pulsing Particles' && <PulsingParticles />}*/}
-                        {/*{project === 'FBO Particles' && <FBOParticles />}*/}
-                        <FBOParticles />
+                        fov: 45,
+                        position: [ 0, 0, 30], // use the third index to bring the camera closer.
+                        zoom: 1
+                    }}>
+                        <AttractorParticles />
                         <OrbitControls />
-                        <ambientLight intensity={1.5} />
-                        {/*<pointLight position={[10, 10, 10]} />*/}
                     </Canvas>
                 </Suspense>
                 </ErrorBoundary>

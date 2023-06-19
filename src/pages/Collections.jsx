@@ -2,8 +2,8 @@ import React, {Suspense, useRef} from 'react';
 import * as THREE from "three";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 import {Canvas} from "@react-three/fiber";
-import {EffectComposer, Glitch} from "@react-three/postprocessing";
-import {FBOParticles} from "../components/Particles/FBOdemo/FBOParticles";
+// import {EffectComposer, Glitch} from "@react-three/postprocessing";
+// import {FBOParticles} from "../components/Particles/FBOdemo/FBOParticles";
 import {OrbitControls} from "@react-three/drei";
 
 
@@ -41,7 +41,6 @@ function RectangleRounded( w, h, r, s ) { // width, height, radiusCorner, smooth
 
         positions.push( x, y, 0 );
         uvs.push( 0.5 + x / w, 0.5 + y / h );
-
     }
 }
 
@@ -49,7 +48,6 @@ function RoundedImage({url, radius, smoothness, ...props}) {
     const ref = useRef()
     const geometry = RectangleRounded(16, 16, 2, 8)
     const texture = new THREE.TextureLoader().load(url)
-
     const material = new THREE.MeshBasicMaterial(
         {
             map: texture,
@@ -67,7 +65,6 @@ function RoundedImage({url, radius, smoothness, ...props}) {
 
 
 function Collections() {
-
     return (
         <div className={'h-screen'}>
             <Suspense fallback={<EDLoadingScreen/>}>
@@ -90,7 +87,6 @@ function Collections() {
                     <RoundedImage url={'/scroll/images/img1.png'} scale={[3, 5, 1]} />
                     <OrbitControls />
                     <ambientLight intensity={1.5} />
-
                 </Canvas>
             </Suspense>
         </div>

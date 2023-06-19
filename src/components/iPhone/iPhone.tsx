@@ -27,17 +27,17 @@ export function Phone() {
             >
                 <Float>
                     <primitive object={ phone.scene } position={[-0.5, -1, 0]} rotation={[0, -1.5, 0]}>
-                        <Html
-                            center
-                            transform
-                            className="phoneHtmlScreen"
-                            distanceFactor={ 1 }
-                            position={[position.x, position.y, position.z]}
-                            rotation={[rotation.x, rotation.y, rotation.z]}
-                            scale={[1.6, 1.58, 1]}
-                        >
-                            <img src={'/ProfilePage.png'}/>
-                        </Html>
+                        {/*<Html*/}
+                        {/*    center*/}
+                        {/*    transform*/}
+                        {/*    className="phoneHtmlScreen"*/}
+                        {/*    distanceFactor={ 1 }*/}
+                        {/*    position={[position.x, position.y, position.z]}*/}
+                        {/*    rotation={[rotation.x, rotation.y, rotation.z]}*/}
+                        {/*    scale={[1.6, 1.58, 1]}*/}
+                        {/*>*/}
+                        {/*    <img src={'/ProfilePage.png'}/>*/}
+                        {/*</Html>*/}
                     </primitive>
                 </Float>
             </PresentationControls>

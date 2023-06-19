@@ -24,7 +24,6 @@ function Gdp(props) {
     colorScale.domain([0, maxVal]);
 
     return (
-        <Suspense fallback={<EdLoadingScreen/>}>
         <Globe
             globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
             // backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
@@ -43,7 +42,7 @@ function Gdp(props) {
             onPolygonHover={setHoverD}
             polygonsTransitionDuration={300}
         />
-    </Suspense>)
+    )
 }
 
 export default Gdp;

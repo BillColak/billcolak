@@ -20,7 +20,6 @@ function EarthQuakes(props) {
             .clamp(true);
 
         return (
-            <Suspense fallback={<EdLoadingScreen/>}>
                 <Globe
                     globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
                     bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
@@ -40,7 +39,6 @@ function EarthQuakes(props) {
                         </li></ul>
                     `}
                 />
-            </Suspense>
         );
 }
 

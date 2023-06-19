@@ -1,12 +1,12 @@
 import {Suspense, useEffect, useMemo, useRef} from "react";
-import {Character, Sprite, GameObject, Boundary} from "./GameComponents/Sprites";
+import {Character, Sprite, GameObject, Boundary} from "./Sprites";
 import backgroundImage from "../assets/GameAssets/Pellet Town.png";
 import foregroundImage from "../assets/GameAssets/foregroundObjects.png";
 // import playerDown from "../assets/GameAssets/playerDown.png";
 // import playerUp from "../assets/GameAssets/playerUp.png";
 // import playerLeft from "../assets/GameAssets/playerLeft.png";
 // import playerRight from "../assets/GameAssets/playerRight.png";
-import {collisions} from "./GameComponents/collisions";
+import {collisions} from "./collisions";
 
 import WarriorRunLeft from "../assets/GameAssets/Player/Run/RunLeft.png";
 import WarriorRunRight from "../assets/GameAssets/Player/Run/RunRight.png";

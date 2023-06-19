@@ -1,11 +1,5 @@
-import React, {Suspense, useRef} from "react";
-// import BlackHole from "../components/BlackHole/BlackHole";
+import React, {Suspense, useContext, useRef} from "react";
 import {Canvas} from "@react-three/fiber";
-// import {OrbitControls} from "@react-three/drei";
-// import useSpline from '@splinetool/r3f-spline'
-// import SplineLoader from "@splinetool/loader";
-// import Spline from "@splinetool/react-spline";
-// import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 import {Phone} from "../components/iPhone/iPhone";
 import Footer from "./Footer";
@@ -13,8 +7,12 @@ import {Overlay, Underlay} from "../components/Baubles/Underlay";
 import {Baubles} from "../components/Baubles/Baubles";
 import Laptop from "../components/Laptop/Laptop";
 import ErrorBoundary from "../components/errorBoundary";
+import {GlobalContext} from "../Utils/Provider";
 
-export default function Test() {
+
+
+export default function DesignPage() {
+    const {theme, setTheme} = useContext(GlobalContext)
 
     return (
         <ErrorBoundary  >
@@ -38,9 +36,10 @@ export default function Test() {
         </section>
         <div className={'h-[800px]'}>
             <Suspense fallback={<EDLoadingScreen/>}>
-                <Canvas camera={{position: [0, 0, 4], }}>
+                <Canvas>
                     <Phone />
-                    <ambientLight intensity={1.5} />
+                    {/*<ambientLight intensity={1.5} />*/}
+                    <pointLight position={[10, 10, 10]} />
                 </Canvas>
             </Suspense>
         </div>
@@ -68,12 +67,14 @@ export default function Test() {
                             veniam tempora deserunt? Molestiae eius quidem quam repellat.
                         </p>
 
-                        <a
-                            href="#"
+                        <button
                             className="mt-8 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
+                            onClick={() => {
+                                console.log(theme)
+                            }}
                         >
                             Get Started Today
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
