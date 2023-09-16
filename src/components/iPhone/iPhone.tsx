@@ -1,19 +1,19 @@
 
-import {ContactShadows, Float, PresentationControls, useGLTF, Html} from "@react-three/drei";
-import {useControls} from "leva";
+import {ContactShadows, Float, PresentationControls, useGLTF} from "@react-three/drei";
+// import {useControls} from "leva";
 
 export function Phone() {
     const phone = useGLTF('models/Iphone12.glb');
-    const {rotation, position} = useControls( {
-            rotation: {
-                value: {x: 0, y: -1.5, z: 0},
-            },
-            position: {
-                value: {x: -0.5, y: -1, z: 0},
-            }
-
-        }
-    );
+    // const {rotation, position} = useControls( {
+    //         rotation: {
+    //             value: {x: 0, y: -1.5, z: 0},
+    //         },
+    //         position: {
+    //             value: {x: -0.5, y: -1, z: 0},
+    //         }
+    //
+    //     }
+    // );
 
     return (
         <>

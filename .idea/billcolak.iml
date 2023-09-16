@@ -10,6 +10,13 @@
       <excludeFolder url="file://$MODULE_DIR$/public/GlobeTextures/skybox" />
       <excludeFolder url="file://$MODULE_DIR$/src/Game" />
       <excludeFolder url="file://$MODULE_DIR$/src/assets/GameAssets" />
+      <excludeFolder url="file://$MODULE_DIR$/public/Fonts/WEB/Berlin" />
+      <excludeFolder url="file://$MODULE_DIR$/public/Fonts/WEB/exensa" />
+      <excludeFolder url="file://$MODULE_DIR$/public/GlobeTextures" />
+      <excludeFolder url="file://$MODULE_DIR$/src/components/BlackHole" />
+      <excludeFolder url="file://$MODULE_DIR$/src/components/Experience" />
+      <excludeFolder url="file://$MODULE_DIR$/src/components/ThreeComponents" />
+      <excludeFolder url="file://$MODULE_DIR$/src/components/Vaporwave" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

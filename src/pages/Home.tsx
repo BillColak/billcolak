@@ -1,16 +1,10 @@
-import {Canvas, useLoader} from '@react-three/fiber'
-// import Box from '../components/ThreeComponents/Box';
-// import Sphere from "../components/ThreeComponents/Sphere";
-import React, {Suspense} from "react";
-// import * as THREE from "three";
+import {Canvas} from '@react-three/fiber'
+import React, {Suspense, useState} from "react";
 import { OrbitControls} from '@react-three/drei'
-// import {TextureLoader} from "three";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 import ErrorBoundary from "../components/errorBoundary";
 import {AttractorParticles} from "../components/StrangeAttractor/test/TestAttractor";
-
-// const Box = React.lazy(() => import('../components/ThreeComponents/Box'));
-// const Sphere = React.lazy(() => import('../components/ThreeComponents/Sphere'));
+import {useControls} from "leva";
 
 
 // TODO https://codesandbox.io/s/zxpv7 HChristmas Baubles
@@ -29,9 +23,26 @@ import {AttractorParticles} from "../components/StrangeAttractor/test/TestAttrac
 // todo Spring library for realistic animations? https://react-spring.dev/ https://react-spring.dev/docs/advanced/config#configs even animate dom elements?
 // https://codesandbox.io/s/kud9p?file=/src/Model.js:883-933 -->  what is going on with nodes in Model.js?
 
-
+const number = Math.floor(Math.random() * 7)
 
 export default function Home() {
+
+    const [Attractor, setAttractor] = useState(number.toString());
+    const l = ["Lorenz", "LorenzMod2", "Thomas", "Dequan", "Dradas", "Arneodo", "Aizawa"]
+
+    useControls(  {
+        attractor: {
+            value: l[number],
+            options: l,
+            onChange: (value) => {
+                setAttractor(l.indexOf(value).toString())
+            }
+        }
+    })
+
+    const camera_pos_z = (Attractor === "0" || Attractor === "3")? 50 : 30
+
+
     return (
         <>
             <div className="h-screen">
@@ -40,10 +51,10 @@ export default function Home() {
                     <Canvas
                         camera={ {
                         fov: 45,
-                        position: [ 0, 0, 30], // use the third index to bring the camera closer.
+                        position: [ 0, 0, camera_pos_z], // use the third index to bring the camera closer.
                         zoom: 1
                     }}>
-                        <AttractorParticles />
+                        <AttractorParticles attr={Attractor}/>
                         <OrbitControls />
                     </Canvas>
                 </Suspense>

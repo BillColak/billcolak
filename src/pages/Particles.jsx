@@ -1,9 +1,9 @@
 import React, {Suspense} from 'react';
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
-import {PulsingParticles} from "../components/Particles/FBOdemo2/PulsingParticles";
 import {Canvas} from "@react-three/fiber";
 import * as THREE from "three";
 import {OrbitControls} from "@react-three/drei";
+import MichelleDancing, { MatrixMichelle } from "../components/MichelleDancing";
 
 
 export default function Particles() {
@@ -23,11 +23,12 @@ export default function Particles() {
                     fov: 45,
                     near: 0.1,
                     far: 100,
-                    position: [ 3, 2, 2], // use the third index to bring the camera closer.
+                    position: [ 0, 2, 4],
                     zoom: 1
                 } }
             >
-                <PulsingParticles />
+                {/*<MichelleDancing />*/}
+                <MatrixMichelle />
                 <OrbitControls />
                 <ambientLight intensity={1.5} />
             </Canvas>

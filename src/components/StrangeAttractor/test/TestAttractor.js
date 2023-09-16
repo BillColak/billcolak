@@ -45,26 +45,16 @@ class SimulationMaterial extends THREE.ShaderMaterial {
 }
 
 extend({ SimulationMaterial: SimulationMaterial });
-const pick = Math.floor(Math.random() * 7)
 
-export function AttractorParticles() {
+export function AttractorParticles(props) {
     const size = 256*2;
     const points = useRef();
     const simulationMaterialRef = useRef();
     const { gl } = useThree();
 
-    const [Attractor, setAttractor] = useState("Lorenz");
-    const l = ["Lorenz", "LorenzMod2", "Thomas", "Dequan", "Dradas", "Arneodo", "Aizawa"]
+    const { attr } = props;
+    const Attractor = attr.toString();
 
-    useControls(  {
-        attractor: {
-            value: l[pick],
-            options: l,
-            onChange: (value) => {
-                setAttractor(l.indexOf(value).toString())
-            }
-        }
-    })
 
     const scene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1 / Math.pow(2, 53), 1);

@@ -33,7 +33,6 @@ module.exports = {
         koble_highlight: "rgba(255, 255, 255, 0.1)",
         koble_purpleNight:"rgba(102,120,255,0.1)",
         koble_overlay: "rgba(0, 0, 0, 0.5)",
-
       },
       fontFamily: {
         mavis: ["Mavis", "sans"],
