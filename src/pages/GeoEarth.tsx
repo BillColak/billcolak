@@ -15,6 +15,11 @@ import React, {Suspense, useState} from "react";
 import {useControls} from "leva";
 // import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
+import {Canvas} from "@react-three/fiber";
+import World from "../components/ISS/models/World";
+import Halo from "../components/ISS/models/Halo";
+import Lights from "../components/ISS/models/Lights";
+import {OrbitControls} from "@react-three/drei";
 // import AirlineRoutes from "../components/ISS/AirlineRoutes";
 // import Population from "../components/ISS/Population";
 // import Gdp from "../components/ISS/GDP";
@@ -37,7 +42,7 @@ export default function GeoEarth() {
 
     useControls('Projects', {
         projects: {
-            options: ['Population', 'Airline Routes', 'Globe GDP', 'Earth Quakes'],
+            options: ['Population', 'Airline Routes', 'Globe GDP', 'Earth Quakes', 'Day & Night Cycles'],
             value: 'Globe GDP',
             onChange: (value) => {
                 setShow(value);
@@ -49,7 +54,7 @@ export default function GeoEarth() {
         <>
             <div className="h-screen">
                 <Suspense fallback={<EDLoadingScreen/>}>
-                    {/*{show === 'Day & Night Cycles' && <DayNightCycles/>}*/}
+                    {show === 'Day & Night Cycles' && <DayNightCycles/>}
                     {show === 'Population' && <Population/>}
                     {show === 'Airline Routes' && <AirlineRoutes/>}
                     {show === 'Globe GDP' && <Gdp/>}
@@ -60,14 +65,14 @@ export default function GeoEarth() {
     )
 }
 
-// function DayNightCycles(){
-//     return (
-//         <Canvas camera={{position: [0, 1, 1.5]}}>
-//             <World />
-//             <Halo color={"#4756d3"} />
-//             <Lights />
-//             <OrbitControls/>
-//         </Canvas>
-//     )
-//
-// }
+function DayNightCycles(){
+    return (
+        <Canvas camera={{position: [0, 1, 1.5]}}>
+            <World />
+            <Halo color={"#4756d3"} />
+            <Lights />
+            <OrbitControls/>
+        </Canvas>
+    )
+
+}

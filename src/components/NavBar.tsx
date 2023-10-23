@@ -11,6 +11,7 @@ const Navbar = () => {
                 <NavLink className={'hover:text-gray-300'} to="/GeoEarth" >Earth</NavLink>
                 <NavLink className={'hover:text-gray-300'} to="/Gallery" >Gallery</NavLink>
                 <NavLink className={'hover:text-gray-300'} to="/Design" >UX</NavLink>
+                <NavLink className={'hover:text-gray-300'} to="/Michelle" >Michelle</NavLink>
             </nav>
         </div>
     );
