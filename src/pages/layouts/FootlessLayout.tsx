@@ -7,7 +7,7 @@ export default function FootlessLayout() {
 
     return (
         <div>
-            <NavBar />
+            {/*<NavBar />*/}
             <Outlet />
         </div>
     );

@@ -7,7 +7,7 @@ export default function DefaultLayout() {
 
     return (
         <div>
-            <NavBar />
+            {/*<NavBar />*/}
             <Outlet />
             <Footer />
         </div>
