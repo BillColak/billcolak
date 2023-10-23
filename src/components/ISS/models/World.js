@@ -10,11 +10,11 @@ export default function World(props) {
 
     const [day, night, normal, rough, clouds] = useLoader(TextureLoader,
         [
-            '/GlobeTextures/earth/textures/day.jpg',
-            '/GlobeTextures/earth/textures/night.jpg',
-            '/GlobeTextures/earth/textures/normal.jpg',
-            '/GlobeTextures/earth/textures/roughness.jpg',
-            '/GlobeTextures/earth/textures/clouds.jpg',
+            '/textures/day.jpg',
+            '/textures/night.jpg',
+            '/textures/normal.jpg',
+            '/textures/roughness.jpg',
+            '/textures/clouds.jpg',
         ],
     )
 

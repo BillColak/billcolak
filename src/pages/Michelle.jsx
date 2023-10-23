@@ -3,7 +3,7 @@ import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 import {Canvas} from "@react-three/fiber";
 import * as THREE from "three";
 import {OrbitControls} from "@react-three/drei";
-import MichelleDancing, { MatrixMichelle } from "../components/MichelleDancing";
+import MichelleDancing  from "../components/MichelleDancing";
 
 
 export default function Michelle() {
@@ -28,7 +28,6 @@ export default function Michelle() {
                 } }
             >
                 <MichelleDancing />
-                <MatrixMichelle />
                 <OrbitControls />
                 <ambientLight intensity={1.5} />
             </Canvas>
