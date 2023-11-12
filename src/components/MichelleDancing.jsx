@@ -4,26 +4,8 @@ Command: npx gltfjsx@6.2.3 MichelleDancing.glb -d-t
 */
 
 import React, {useEffect, useRef, useState} from 'react'
-import {useGLTF, useAnimations, Sampler} from '@react-three/drei'
+import {useGLTF, useAnimations} from '@react-three/drei'
 import {useControls} from "leva";
-import * as THREE from "three";
-import {MeshSurfaceSampler} from "three/examples/jsm/math/MeshSurfaceSampler";
-
-function sampleMesh(width, height, size, meshSample) {
-    var len = width * height * 4;
-    var data = new Float32Array(len);
-    const sampler = new MeshSurfaceSampler(meshSample).build();
-    for (let i = 0; i < len; i += 4) {
-        const tempPosition = new THREE.Vector3();
-        sampler.sample(tempPosition);
-        data[i] = tempPosition.x;
-        data[i + 1] = tempPosition.y;
-        data[i + 2] = tempPosition.z;
-        data[i + 3] = Math.random() * 10.0;
-    }
-    return data;
-}
-
 
 
 export default function MichelleDancing(props) {
@@ -51,7 +33,7 @@ export default function MichelleDancing(props) {
     return () => {
       actions[animationIndex].stop()
     }
-  }, [animationIndex])
+  }, [actions, animationIndex])
 
   return (
     <group ref={group} {...props} dispose={null}>
@@ -66,35 +48,3 @@ export default function MichelleDancing(props) {
 }
 
 useGLTF.preload('/MichelleDancing.glb')
-
-
-// https://codesandbox.io/s/ehflx3?file=/src/Grass.jsx:505-533
-// export function MatrixMichelle(){
-// // Create a torus know with basic geometry & material
-//     const geometry = new THREE.TorusKnotGeometry(4, 1.3, 100, 16);
-//     const torusKnot = new THREE.Mesh(geometry);
-//
-//     const meshRef = useRef()
-//     const instanceRef = useRef()
-//     return (
-//         <>
-//             <Sampler
-//                 transform={({ position, normal, dummy: object }) => {
-//                     console.log("position: ", position)
-//                     console.log("normal: ", normal)
-//                     console.log("object: ", object)
-//                     object.scale.setScalar(Math.random() * 0.0075)
-//                     object.position.copy(position)
-//                     object.lookAt(normal.add(position))
-//                     object.rotation.y += Math.random() - 0.5 * (Math.PI * 0.5)
-//                     object.rotation.x += Math.random() - 0.5 * (Math.PI * 0.5)
-//                     object.rotation.z += Math.random() - 0.5 * (Math.PI * 0.5)
-//                     object.updateMatrix()
-//                     return object
-//                 }}
-//                 mesh={meshRef}
-//                 instances={instanceRef}
-//             />
-//         </>
-//     )
-// }
