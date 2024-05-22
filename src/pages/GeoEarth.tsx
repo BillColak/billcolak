@@ -42,7 +42,7 @@ export default function GeoEarth() {
 
     useControls('Projects', {
         projects: {
-            options: ['Population', 'Airline Routes', 'Globe GDP', 'Earth Quakes', 'Day & Night Cycles'],
+            options: ['Population', 'Airline Routes', 'Globe GDP', 'Earth Quakes'],
             value: 'Globe GDP',
             onChange: (value) => {
                 setShow(value);
@@ -54,7 +54,6 @@ export default function GeoEarth() {
         <>
             <div className="h-screen">
                 <Suspense fallback={<EDLoadingScreen/>}>
-                    {show === 'Day & Night Cycles' && <DayNightCycles/>}
                     {show === 'Population' && <Population/>}
                     {show === 'Airline Routes' && <AirlineRoutes/>}
                     {show === 'Globe GDP' && <Gdp/>}

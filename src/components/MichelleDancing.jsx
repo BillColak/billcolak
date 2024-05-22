@@ -15,6 +15,7 @@ export default function MichelleDancing(props) {
 
   const options = ["HipHop", "BreakDance"]
   const [ animationIndex, setAnimationIndex ] = useState("HipHop")
+  //   todo https://vercel.com/docs/edge-network/caching  --> also for GeoEarth
 
   useControls( {
     Dance: {

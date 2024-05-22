@@ -7,6 +7,7 @@ import Page404 from "./pages/Page404";
 import {GlobalProvider} from "./Utils/Provider";
 import Michelle from "./pages/Michelle";
 import WorldPage from "./pages/WorldPage";
+import DesignPortfolio from "./pages/DesignPortfolio";
 // import Lorenz from "./pages/ParticlePages/Lorenz";
 // import LorenzMod2 from "./pages/ParticlePages/LorenzMod2";
 // import Thomas from "./pages/ParticlePages/Thomas";
@@ -41,7 +42,8 @@ function App() {
                         <Route path="/GeoEarth" element={<GeoEarth/>}/>
                         <Route path="/Design" element={<DesignPage/>}/>
                         <Route path="/Gallery" element={<ProjectsPage/>}/>
-                        <Route path="/Porfolio" element={<DevPortfolio/>}/>
+                        <Route path="/Design-Portfolio" element={<DesignPortfolio/>}/>
+                        <Route path="/Dev-Portfolio" element={<DevPortfolio/>}/>
                         <Route path="/Michelle" element={<Michelle/>}/>
                         <Route path="*" element={<Page404 />} />
                     </Route>
