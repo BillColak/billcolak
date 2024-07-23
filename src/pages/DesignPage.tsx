@@ -1,4 +1,4 @@
-import React, {Suspense, useContext} from "react";
+import React, {Suspense} from "react";
 import {Canvas} from "@react-three/fiber";
 import EDLoadingScreen from "../components/LoadingScreen/EDLoadingScreen";
 import {Phone} from "../components/iPhone/iPhone";
@@ -7,11 +7,9 @@ import {Overlay, Underlay} from "../components/Baubles/Underlay";
 import {Baubles} from "../components/Baubles/Baubles";
 import Laptop from "../components/Laptop/Laptop";
 import ErrorBoundary from "../components/errorBoundary";
-import {GlobalContext} from "../Utils/Provider";
 
 
 export default function DesignPage() {
-  const {theme, setTheme} = useContext(GlobalContext)
 
   return (
     <ErrorBoundary>
@@ -73,9 +71,6 @@ export default function DesignPage() {
 
                 <button
                   className="mt-8 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
-                  onClick={() => {
-                    console.log(theme)
-                  }}
                 >
                   Get Started Today
                 </button>
